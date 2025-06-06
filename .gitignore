@@ -1,0 +1,32 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# MATLAB
+*.asv
+*.fig
+*.mat
+*.mlx.autosave
+*.log
+*.slxc
+*.mex*
+
+# Python
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+
+# Build / data artifacts
+results/
+*.csv
+*.log
+
+# CAD software
+*.SLD*
+*.bak
+*.step
+*.stl
+*.iges
+
+# VS Code settings
+.vscode/
