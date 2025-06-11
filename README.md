@@ -1,6 +1,6 @@
 # Cold Gas Propulsion System
 
-A hands-on cold gas thruster project designed and built for CubeSat-scale spacecraft. This repository includes the full design lifecycle: research, system modeling, simulation, documentation, CAD, and hardware test planning.
+A hands-on cold gas thruster project designed and built for fun. This repository includes the full design lifecycle: research, system modeling, simulation, documentation, CAD, and hardware test planning.
 
 ---
 
