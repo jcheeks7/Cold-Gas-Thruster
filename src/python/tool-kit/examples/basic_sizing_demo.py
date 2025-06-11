@@ -1,5 +1,5 @@
 from cold_gas_toolkit.core.constants import (
-    P_t, T_t, gamma, R_specific, A_throat, P_0, g0, A_exit, Expansion_ratio
+    P_t, T_t, gamma, R_specific, A_throat, P_0, g0, A_exit, Expansion_ratio. M_e
 )
 from cold_gas_toolkit.core.flow import (
     mass_flow_rate, exit_mach, exit_temperature,
@@ -23,7 +23,6 @@ propellant_density = 900  # kg/m³ (approx for CO₂ under pressure)
 
 # --- Flow Calculations ---
 m_dot = mass_flow_rate()
-M_e = exit_mach(Expansion_ratio, gamma)
 T_e = exit_temperature(T_t, M_e, gamma)
 P_e = exit_pressure(P_t, M_e, gamma)
 v_e = exit_velocity(T_e, gamma, R_specific, M_e)
