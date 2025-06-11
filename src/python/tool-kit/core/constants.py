@@ -9,6 +9,7 @@ R_specific = 188.9      # [J/kg·K] Specific gas constant for CO₂
 P_t = 5.5e6             # [Pa] Total tank pressure (paintball is ~800 psi)
 T_t = 300               # [K] Total tank temperature (doinh this at room temp, can change to reflect test environment temp)
 P_0 = 0                 # [Pa] Ambient pressure (vacuum for space, [test day pressure] for test environment)
+V_t
 
 # ---- Geometry ----
 d_throat = 1e-3         # [m] Throat diameter (2mm for this)
