@@ -13,3 +13,7 @@ P_0 = 0                 # [Pa] Ambient pressure (vacuum for space, [test day pre
 # ---- Geometry ----
 d_throat = 1e-3         # [m] Throat diameter (2mm for this)
 A_throat = 3.1416 * (d_throat/2)**2  # [m²] Throat area
+d_exit = 3e-3  # [m] Exit diameter (4 mm)
+A_exit = 3.1416 * (d_exit / 2)**2  # [m²] Exit area
+
+Expansion_ratio = A_exit / A_throat
