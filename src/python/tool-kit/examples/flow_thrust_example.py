@@ -1,5 +1,5 @@
 from cold_gas_toolkit.core.constants import (
-    P_t, T_t, gamma, R_specific, A_throat
+    P_t, T_t, gamma, R_specific, A_throat, Expansion_ratio, A_exit
 )
 from cold_gas_toolkit.core.flow import (
     mass_flow_rate, exit_mach, exit_temperature,
@@ -8,9 +8,6 @@ from cold_gas_toolkit.core.flow import (
 from cold_gas_toolkit.core.thrust import (
     calculate_thrust, calculate_isp
 )
-
-expansion_ratio = 4.0  # Ae / A* 
-A_exit = A_throat * expansion_ratio  # Exit area
 
 # --- FLOW CALCULATIONS MAPPING---
 m_dot = mass_flow_rate()
