@@ -6,9 +6,9 @@ A hands-on cold gas thruster project designed and built for CubeSat-scale spacec
 
 ## 🚀 Project Overview
 
-Cold gas propulsion is a simple, safe, and cost-effective technology for small spacecraft attitude and trajectory control. This system uses a compressed gas (e.g., CO₂) expelled through a nozzle to generate thrust via Newton's Third Law.
+Cold gas propulsion is a simple, safe, and cost-effective technology for small spacecraft attitude and trajectory control. This system uses a compressed gas CO₂ expelled through a nozzle to generate thrust via Newton's Third Law.
 
-This project models, simulates, and prepares for the physical implementation of a cold gas thruster, including hardware, controls, and testing protocols. A corresponding GitHub repository can be found [here](https://github.com/jcheeks7/Cold-Gas-Thruster).
+This project models, simulates, and prepares for the physical implementation of a cold gas thruster, including hardware, controls, and testing protocols.
 
 ---
 
