@@ -19,12 +19,12 @@ A modular Python toolkit for modeling, sizing, and simulating cold gas propulsio
 ```
 cold-gas-toolkit/
 ├── core/
-│       ├── constants.py          # Global constants (Pt, Tt, gamma, R, etc.)
-│       ├── flow.py               # Isentropic flow calculations
-│       ├── thrust.py             # Thrust and Isp functions
-│       ├── sizing.py             # Impulse, mass, delta-v, and tank volume
-│       ├── tank.py               # Ideal gas modeling and burst pressure
-│       └── simulation.py         # Time-step simulation of burn
+│   ├── constants.py          # Global constants (Pt, Tt, gamma, R, etc.)
+│   ├── flow.py               # Isentropic flow calculations
+│   ├── thrust.py             # Thrust and Isp functions
+│   ├── sizing.py             # Impulse, mass, delta-v, and tank volume
+│   ├── tank.py               # Ideal gas modeling and burst pressure
+│   └── simulation.py         # Time-step simulation of burn
 ├── examples/
 │   ├── full_cold_gas_case.py     # End-to-end flow and sizing demo
 │   ├── sizing_demo.py            # Propellant mass and delta-v
