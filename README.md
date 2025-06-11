@@ -1,17 +1,110 @@
-## 🚀 Features
+# Cold Gas Propulsion System
 
-- CO₂-based cold gas propulsion system
-- MATLAB simulations for thrust, Isp, and flow conditions
-- Python scripts for test data processing
-- P&ID and CAD-based physical design
+A hands-on cold gas thruster project designed and built for CubeSat-scale spacecraft. This repository includes the full design lifecycle: research, system modeling, simulation, documentation, CAD, and hardware test planning.
 
-## 🔧 Tools Used
+---
 
-- MATLAB
-- Python 3.x
-- SolidWorks
-- Git + GitHub
+## 🚀 Project Overview
 
-## 📄 License
+Cold gas propulsion is a simple, safe, and cost-effective technology for small spacecraft attitude and trajectory control. This system uses a compressed gas (e.g., CO₂) expelled through a nozzle to generate thrust via Newton's Third Law.
 
-[MIT License](LICENSE)
+This project models, simulates, and prepares for the physical implementation of a cold gas thruster, including hardware, controls, and testing protocols. A corresponding GitHub repository can be found [here](https://github.com/jcheeks7/Cold-Gas-Thruster).
+
+---
+
+## 📁 Repository Structure
+
+```
+cold-gas-propulsion/
+├── docs/                  # Documentation and visual references
+│   ├── CAD/               # SolidWorks and STEP files
+│   ├── testing/           # Test plans, safety protocols
+│   ├── schematics/        # System-level architecture diagrams (P&ID's, etc...)
+│   ├── images/            # Graphics for README and LaTeX report
+│   └── report/            # LaTeX project report (main.tex, sample.bib)
+│
+├── src/                   # Source code for simulation and analysis
+│   └── python/            # System Simulation and Control Baord
+│
+├── data/                  # Experimental data, logs, CSV or .mat files
+├── results/               # Output plots and figures
+├── .gitignore
+├── LICENSE
+└── README.md              # You're here
+```
+
+---
+
+## 🧠 Features
+
+* Ideal gas and isentropic nozzle flow models
+* MEOP, burst pressure, and tank sizing calculations
+* Time-step tank pressure & mass simulation
+* CAD-compatible tank layout and plumbing
+* Full LaTeX technical report with citations
+* P\&ID and testing documentation
+
+---
+
+## 🛠 Tools Used
+
+* **MATLAB** — flow simulation, pressure modeling, and performance estimation
+* **Python** — test data processing and plotting
+* **SolidWorks / Fusion 360** — 3D modeling
+* **LaTeX** — technical documentation
+* **GitHub** — version control and publishing
+
+---
+
+## 📄 LaTeX Report
+
+Location: [`docs/report/`](docs/report/)
+
+To compile:
+
+```bash
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
+```
+
+Includes:
+
+* Literature survey (cold gas, CubeSat trends)
+* Design rationale and equations
+* Simulation results and plots
+* Safety and testing methodology
+
+---
+
+## 📸 Showcase
+
+*(Coming soon)*
+
+* Annotated CAD screenshots
+* Plot samples from simulation
+* Build photos & test rig shots
+
+---
+
+## ✅ Future Work
+
+* Add control electronics for valve timing
+* Conduct leak tests and performance validation
+* 3D print or machine mounting components
+* Extend MATLAB toolkit with multi-axis control model
+
+---
+
+## 📜 License
+
+[MIT License](LICENSE) — feel free to fork, remix, and learn from this project.
+
+---
+
+## 👨‍🚀 Author
+
+Developed by a Georgia Tech aerospace engineering undergrad for summer propulsion research and small satellite systems experience.
+
+For questions, collabs, or feedback, feel free to reach out!
