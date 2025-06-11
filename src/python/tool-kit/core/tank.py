@@ -1,7 +1,6 @@
-from cold_gas_toolkit.core.constants import R_specific, T_t, V=Tank_volume, P
+from cold_gas_toolkit.core.constants import R_specific, T_t, V_t, P_t
 
-# 1. Estimate gas mass using ideal gas law
-def ideal_gas_mass(P, V, T=T_t, R=R_specific):
+def ideal_gas_mass(P=P_t, V=V_t, T=T_t, R=R_specific):
     """
     Parameters:
     - P: Pressure [Pa]
@@ -14,9 +13,7 @@ def ideal_gas_mass(P, V, T=T_t, R=R_specific):
     """
     return (P * V) / (R * T)
 
-
-# 2. Required pressure to store desired gas mass
-def calculate_meop(m_required, V, T=T_t, R=R_specific):
+def calculate_meop(m_required, V=V_t, T=T_t, R=R_specific):
     """
     Parameters:
     - m_required: Mass of gas [kg]
@@ -29,8 +26,6 @@ def calculate_meop(m_required, V, T=T_t, R=R_specific):
     """
     return (m_required * R * T) / V
 
-
-# 3. Estimate burst pressure with margin
 def estimate_burst_pressure(MEOP, safety_factor=1.5):
     """
     Parameters:
