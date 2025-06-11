@@ -1,6 +1,5 @@
 from math import sqrt
 from .constants import P_t, T_t, gamma, R_specific, A_throat
-#Known constants from .constants
 from scipy.optimize import fsolve
 
 def estimate_mass_flow_rate(P0, T0, A_throat, gamma, R_specific):
@@ -16,7 +15,7 @@ def area_mach_eq(M, expansion_ratio, gamma):
     return term1 * term2**exponent - expansion_ratio
 
 def exit_mach(expansion_ratio, gamma):
-    guess = 2.0  # Supersonic
+    guess = 2.0  # Supersonic; Can change, <1 is subsonic, >1 supersong; we want this to be supersonic
     M_e, = fsolve(area_mach_eq, guess, args=(expansion_ratio, gamma))
     return M_e
 
