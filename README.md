@@ -48,8 +48,7 @@ cold-gas-propulsion/
 
 ## 🛠 Tools Used
 
-* **MATLAB** — flow simulation, pressure modeling, and performance estimation
-* **Python** — test data processing and plotting
+* **Python** — Data simulation and valve control
 * **SolidWorks / Fusion 360** — 3D modeling
 * **LaTeX** — technical documentation
 * **GitHub** — version control and publishing
