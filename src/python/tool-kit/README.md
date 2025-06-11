@@ -13,6 +13,21 @@ A modular Python toolkit for modeling, sizing, and simulating cold gas propulsio
 * **Time-Step Simulation**: Models pressure and mass over time with plotting support
 
 ---
+## Author
+
+Developed by Jaxsen Cheeks — Aerospace Engineering @ Georgia Tech
+Toolkit developed for academic and personal propulsion projects.
+
+---
+
+## Future Additions
+
+* Multi-pulse burn simulation
+* Streamlit GUI
+* Unit testing
+* CSV export for test reports
+
+---
 
 ## Folder Structure
 
@@ -77,21 +92,6 @@ python examples/plot_burn_simulation.py
 
 ---
 
-## Author
-
-Developed by Jaxsen Cheeks — Aerospace Engineering @ Georgia Tech
-Toolkit developed for academic and personal propulsion projects.
-
----
-
-## Future Additions
-
-* Multi-pulse burn simulation
-* Streamlit GUI
-* Unit testing
-* CSV export for test reports
-
----
 
 ## License
 
