@@ -4,7 +4,7 @@ A modular Python toolkit for modeling, sizing, and simulating cold gas propulsio
 
 ---
 
-## 🚀 Features
+## Features
 
 * **Core Flow Modeling**: Calculates mass flow rate, exit velocity, Mach number, and thrust
 * **Sizing Tools**: Computes required propellant mass, total impulse, tank volume, and achievable delta-v
@@ -14,7 +14,7 @@ A modular Python toolkit for modeling, sizing, and simulating cold gas propulsio
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 cold-gas-toolkit/
@@ -37,7 +37,7 @@ cold-gas-toolkit/
 
 ---
 
-## 🔧 Installation
+## Installation
 
 ```bash
 git clone https://github.com/your-username/cold-gas-toolkit.git
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 * Python 3.7+
 * `matplotlib`
@@ -61,7 +61,7 @@ pip install matplotlib scipy
 
 ---
 
-## ✅ Example Usage
+## Example Usage
 
 Run a complete mission analysis:
 
@@ -77,14 +77,14 @@ python examples/plot_burn_simulation.py
 
 ---
 
-## 📌 Author
+## Author
 
 Developed by Jaxsen Cheeks — Aerospace Engineering @ Georgia Tech
 Toolkit developed for academic and personal propulsion projects.
 
 ---
 
-## 🧠 Future Additions
+## Future Additions
 
 * Multi-pulse burn simulation
 * Streamlit GUI
@@ -93,6 +93,6 @@ Toolkit developed for academic and personal propulsion projects.
 
 ---
 
-## 📜 License
+## License
 
 MIT License
