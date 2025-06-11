@@ -1,0 +1,15 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Jupyter and Python IDEs
+.ipynb_checkpoints/
+.vscode/
+*.swp
+*.swo
+
+# Environments
+.env
+.venv
+ENV/
