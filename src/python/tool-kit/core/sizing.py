@@ -1,4 +1,5 @@
 from .constants import g0
+from math import log
 
 def calculate_total_impulse(thrust, burn_time):
     """
@@ -10,7 +11,6 @@ def calculate_total_impulse(thrust, burn_time):
     - Total impulse [N·s]
     """
     return thrust * burn_time
-
 
 def calculate_required_propellant(I_total, Isp):
     """
@@ -33,8 +33,6 @@ def calculate_tank_volume(m_propellant, density):
     - Volume [m³]
     """
     return m_propellant / density
-
-from math import log
 
 def calculate_delta_v(Isp, m_initial, m_final):
     """
