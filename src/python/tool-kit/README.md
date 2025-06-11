@@ -15,8 +15,8 @@ A modular Python toolkit for modeling, sizing, and simulating cold gas propulsio
 ---
 ## Author
 
-Developed by Jaxsen Cheeks — Aerospace Engineering @ Georgia Tech
-Toolkit developed for academic and personal propulsion projects.
+*Developed by Jaxsen Cheeks — Aerospace Engineering @ Georgia Tech
+*Toolkit developed for academic and personal propulsion projects.
 
 ---
 
