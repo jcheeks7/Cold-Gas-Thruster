@@ -90,10 +90,8 @@ Includes:
 
 ## ✅ Future Work
 
-* Add control electronics for valve timing
-* Conduct leak tests and performance validation
-* 3D print or machine mounting components
-* Extend MATLAB toolkit with multi-axis control model
+*Nozzle Parameter Expirementation
+*Toolkit Expansion
 
 ---
 
@@ -105,6 +103,8 @@ Includes:
 
 ## 👨‍🚀 Author
 
-Developed by a Georgia Tech aerospace engineering undergrad for summer propulsion research and small satellite systems experience.
+Developed by Jaxsen Cheeks, a Georgia Tech aerospace engineering undergrad, for summer propulsion research and small satellite systems experience.
 
 For questions, collabs, or feedback, feel free to reach out!
+* jcheeks7@gatech.edu
+* linkedin.com/jaxsenc
