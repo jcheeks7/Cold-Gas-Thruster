@@ -6,6 +6,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{amssymb}
+\usepackage{float}
 
 \title{Design, Simulation, and Testing of a Modular Cold Gas Thruster System for CubeSat Applications}
 
@@ -43,7 +44,7 @@ In recent years, the use of CubeSats and small satellites has grown rapidly due 
 
 One of the major challenges for smallsat platforms is the development of reliable, efficient, and compact propulsion systems. Historically, many CubeSat missions opted out of incorporating propulsion, relying instead on deployment mechanisms or passive orbital decay. However, as mission complexity increases, the need for precise maneuvering, station keeping, and deorbiting has grown. Traditional propulsion systems, such as chemical and electric thrusters, provide high performance but are often unsuitable for CubeSats due to their complexity, cost, and safety concerns. Cold gas propulsion systems offer a promising alternative due to their simplicity, operational safety, and low cost, although they deliver lower performance than chemical or electric systems.
 
-This paper presents the design, simulation, and testing of a modular benchtop cold gas thruster system developed as a proof of concept for CubeSat-scale propulsion applications. The project integrates hardware prototyping, CAD modeling, and a simulation toolkit using MATLAB and Python to predict system performance. Drawing inspiration from recent research by NASA, the European Space Agency (ESA), and the Georgia Tech Space Systems Design Lab (SSDL), this work aims to demonstrate the feasibility of a compact, reliable, and low-cost propulsion solution for future small satellite missions.
+This paper presents the design, simulation, and testing of a modular benchtop cold gas thruster system developed as a proof of concept for CubeSat-scale propulsion applications. The project integrates hardware prototyping, CAD modeling, and a simulation toolkit using MATLAB and Python to predict system performance. Drawing inspiration from recent research by NASA and the Georgia Tech Space Systems Design Lab (SSDL), this work aims to demonstrate the feasibility of a compact, reliable, and low-cost propulsion solution for future small satellite missions.
 
 
 \section{Background and Literature Review}
@@ -65,7 +66,7 @@ Recent research has focused on advancing cold gas propulsion technology to addre
 This project builds upon these ongoing research efforts, drawing insights from NASA’s reports, the comprehensive review by Khader et al., and the Georgia Tech Space Systems Design Lab’s work. By integrating hardware prototyping, simulation modeling, and CAD design, this modular benchtop cold gas thruster system provides a practical demonstration platform for CubeSat-scale propulsion development. Additionally, the project offers educational value, serving as a practical, hands-on application of coursework and extracurricular knowledge.
 
 
-\section{System Design and Build}
+\section{System Design}
 
 The benchtop cold gas thruster system for this project is structured into five key subsystems: propellant and propellant storage, flow control, nozzle assembly, electronics and control logic, and system mounting with integrated safety measures. The following subsections outline each component's design considerations and implementation.
 
@@ -108,29 +109,42 @@ The flow control subsystem incorporates a 12V DC solenoid valve rated for modera
 
 \subsection{Nozzle Design and Fabrication}
 
-The nozzle for the cold gas propulsion system is designed as a simple, single-stage converging nozzle, optimized for safe operation with CO$_2$ at moderate pressures. The design follows classical compressible flow theory for choked, isentropic flow through a converging passage. The geometry was modeled in SolidWorks and fabricated using a Prusa i3 MK3 3D printer with PETG filament, chosen for its chemical resistance, durability, and moderate pressure tolerance.
+The nozzle used in this cold gas propulsion system is a converging–diverging (C–D) nozzle, designed to facilitate efficient expansion of CO$_2$ gas. The geometry consists of a smooth converging section leading to a narrow throat (2 mm diameter), followed by a diverging exit (4 mm diameter). This configuration is based on classical compressible flow theory and enables the flow to reach Mach 1 at the throat under choked conditions, with potential for supersonic expansion in the diverging section if pressure conditions allow.
 
-\subsubsection{Design Parameters}
+The design calculations assume isentropic flow and ideal gas behavior. The nozzle was modeled using SolidWorks and fabricated via 3D printing using high-strength PETG, chosen for its durability and chemical resistance.
 
-\begin{table}[h!]
-    \centering
-    \caption{Nozzle Design Parameters}
-    \begin{tabular}{|l|c|}
-        \hline
-        \textbf{Parameter} & \textbf{Value} \\
-        \hline
-        Propellant & CO$_2$ \\
-        Regulated input pressure $P_0$ & 50 psi ($\approx 344,738$ Pa) \\
-        Ambient pressure $P_a$ & 1 atm ($= 101,325$ Pa) \\
-        Temperature $T_0$ & 293 K \\
-        Specific heat ratio $\gamma$ & 1.3 \\
-        Specific gas constant $R$ & 188.9 J/kg$\cdot$K \\
-        Discharge coefficient $C_d$ & 0.9 \\
-        Throat diameter & 2 mm \\
-        Exit diameter & 4 mm \\
-        \hline
-    \end{tabular}
+\vspace{0.5em}
+\noindent
+\textbf{Design Parameters (Table~\ref{tab:nozzleparams}):}
+
+\begin{table}[h]
+\centering
+\caption{C–D Nozzle Design Parameters}
+\label{tab:nozzleparams}
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Propellant & CO$_2$ \\
+Chamber Pressure ($P_0$) & 50 psi $\approx$ 344,738 Pa \\
+Ambient Pressure ($P_a$) & 1 atm = 101,325 Pa \\
+Temperature ($T_0$) & 293 K \\
+Specific Heat Ratio ($\gamma$) & 1.3 \\
+Gas Constant for CO$_2$ ($R$) & 188.9 J/kg·K \\
+Discharge Coefficient ($C_d$) & 0.9 \\
+Throat Diameter & 2 mm \\
+Exit Diameter & 4 mm \\
+\bottomrule
+\end{tabular}
 \end{table}
+
+\vspace{0.5em}
+\noindent
+
+\vspace{0.5em}
+\noindent
+The nozzle is mounted to the propulsion system using a compression fitting for 1/4" OD tubing. Post-processing steps such as sanding were applied to smooth the internal walls and reduce turbulence. This design allows for safe, testable cold gas expansion under ambient conditions, while approximating the performance of a space-bound cold gas thruster.
+
 
 \subsubsection{Calculated Performance}
 \noindent\textbf{Throat Area:}
@@ -174,10 +188,52 @@ All system components will be mounted on a rigid plywood baseplate, manufactured
 
 Safety measures incorporated into the system include a pressure relief valve or pre-set regulator to ensure system pressure does not exceed the rated limits of the tubing and components (nominally 100 psi). Testing will be conducted in a controlled, outdoor workspace, clear of flammable materials and with adequate ventilation. Appropriate personal protective equipment (PPE), including safety glasses and gloves, will be used during all assembly and testing operations to mitigate potential hazards. These measures collectively ensure safe and reliable operation of the cold gas propulsion system under test conditions.
 
+\subsection{System Architecture}
 
-\subsection{Integration and Testing}
+To summarize the complete cold gas propulsion system architecture, a Piping and Instrumentation Diagram (P\&ID) is provided in Figure~\ref{fig:pid}. This schematic integrates all major components discussed in the previous sections, including the propellant tank (PT-01), regulator (PPR-01), solenoid valve (PPV-01), control electronics (CTRL-01), and nozzle (N-01). The diagram also includes key safety features such as a pressure relief valve (PRV-01) and in-line pressure monitoring (PG-01), as well as the power supply interfaces (PS-01 and PS-02).
 
-\subsubsection{System Assembly}
+The P\&ID illustrates both fluid flow (CO$_2$) and electrical control pathways, highlighting how each subsystem interconnects during operation. Control signals from the microcontroller actuate the solenoid valve to regulate thrust, while regulated CO$_2$ flows from the tank through the valve and nozzle to generate impulse. The full component tag legend is provided in Table~\ref{tab:pid-legend}.
+
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.7\textheight}
+    \centering
+    \includegraphics[height=0.9\textwidth,angle=270]{images/CG-PID-v1.png} 
+    \caption{Piping and Instrumentation Diagram (P\&ID) for the cold gas propulsion system.}
+    \label{fig:pid}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textheight}
+    \centering
+    \captionof{table}{P\&ID Component Legend}
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Tag} & \textbf{Component} & \textbf{Notes} \\
+        \midrule
+        PT-01 & CO$_2$ Tank & 12oz, 800 psi \\
+        PPR-01 & Regulator & 50–100 psi output \\
+        PRV-01 & Pressure Relief Valve & Cracks at ~100 psi \\
+        PPV-01 & Solenoid Valve (NC) & 12V, Arduino controlled \\
+        CTRL-01 & Microcontroller & Arduino Uno \\
+        FD-01 & Flyback Diode & 1N4007 \\
+        PS-01 & Power Supply & 12V for solenoid \\
+        PS-02 & Power Supply & USB/5V for Arduino \\
+        PG-01 & Pressure Gauge & Upstream of nozzle \\
+        PN-01 & Nozzle & 2 mm throat, 4 mm exit \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:pid-legend}
+\end{minipage}
+\end{figure}
+
+
+
+
+\section{Integration and Testing}
+
+\subsection{System Assembly}
 The system assembly follows a structured order of operations:
 \begin{enumerate}
     \item Mount the plywood baseplate and attach all components, including the CO$_2$ tank, regulator, solenoid valve, tubing, and nozzle.
@@ -192,7 +248,7 @@ The system assembly follows a structured order of operations:
     \end{itemize}
 \end{enumerate}
 
-\subsubsection{Testing Procedures}
+\subsection{Testing Procedures}
 A series of tests will be conducted to ensure system functionality and safety:
 \begin{itemize}
     \item \textbf{Leak Test}: Apply soapy water or use a gas leak detector on all tubing and fittings prior to pressurization.
@@ -201,15 +257,14 @@ A series of tests will be conducted to ensure system functionality and safety:
     \item \textbf{Timing Test}: Measure valve response time and actuation duration controlled by Arduino timing functions.
 \end{itemize}
 
-\subsubsection{Performance Monitoring}
+\subsection{Performance Monitoring}
 \begin{itemize}
     \item \textbf{Pressure Monitoring}: Use a pressure gauge upstream of the nozzle or monitor regulator output to confirm operating pressure.
     \item \textbf{Flow Observation}: Visually observe the nozzle’s exhaust plume during tests.
     \item \textbf{Timing Measurements}: Use a stopwatch or Arduino timing functions to measure valve open duration and response times.
-    \item \textbf{Optional}: Place a basic scale under the test stand to estimate thrust by measuring recoil force.
 \end{itemize}
 
-\subsubsection{Safety Procedures}
+\subsection{Safety Procedures}
 Safety measures implemented during testing include:
 \begin{itemize}
     \item Conducting tests in a well-ventilated, outdoor workspace free of flammable materials.
@@ -221,7 +276,7 @@ Safety measures implemented during testing include:
 
 \section{Simulation Toolkit}
 
-The system’s performance and design calculations were modeled using \textbf{MATLAB}, with optional use of \textbf{Python} for visualization and extended analysis. The simulation toolkit includes several key computational modules:
+The system’s performance and design calculations were modeled using  \textbf{Python}. The simulation toolkit includes several key computational modules:
 
 \subsubsection{Key Functions}
 \begin{itemize}
@@ -233,9 +288,9 @@ The system’s performance and design calculations were modeled using \textbf{MA
 
 \subsubsection{Simulation Inputs}
 \begin{itemize}
-    \item Upstream regulated pressure ($P_0$), e.g., 50 psi.
-    \item Ambient temperature ($T_0$), e.g., 293 K.
-    \item Nozzle throat area ($A_t$) determined from CAD geometry.
+    \item Upstream regulated pressure ($P_0$), e.g., 50 or 100 psi.
+    \item Ambient temperature ($T_0$), e.g., 293 K ( or whatever temp on test day is)
+    \item Nozzle throat area ($A_t$:\[ 3.14 \times 10^{-6} \ \text{m}^2\]
     \item Gas properties for CO$_2$: specific gas constant ($R$) and heat ratio ($\gamma$).
 \end{itemize}
 
@@ -268,6 +323,6 @@ summary of contributions, system performance, and potential extensions to hybrid
 could expand into experimenting with nozzle variations; nozzle throat diameter, nozzle exit diameter, convergent(current) vs divergent-convergent vs divergent
 
 \bibliographystyle{new-aiaa}
-\bibliography{sample}
+\bibliography{reportBib}
 
 \end{document}
