@@ -14,17 +14,17 @@ This project models, simulates, and prepares for the physical implementation of 
 
 ## 🚧 Current Progress🚧:
 
-✅Literture Review
-\n✅Concept Design 
-✅Design Choice Review
-✅Schematics
-✅Material Ordered
-⏳Material Recieved
-⏳Tool Kit
-⏳Simulation (Toolkit & CFD)
-⏳CAD
-🧱Build
-🧱Results
+✅Literture Review <br>
+✅Concept Design <br>
+✅Design Choice Review <br>
+✅Schematics <br>
+✅Material Ordered <br>
+⏳Material Recieved <br>
+⏳Tool Kit <br>
+⏳Simulation (Toolkit & CFD) <br>
+⏳CAD <br>
+🧱Build <br>
+🧱Results <br>
 
 ---
 
