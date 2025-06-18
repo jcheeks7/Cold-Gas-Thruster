@@ -14,7 +14,7 @@ This project models, simulates, and prepares for the physical implementation of 
 
 ## 🚧 Current Progress🚧:
 
-✅Literture Review <br>
+✅Literature Review <br>
 ✅Concept Design <br>
 ✅Design Choice Review <br>
 ✅Schematics <br>
