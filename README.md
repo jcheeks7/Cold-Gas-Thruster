@@ -19,11 +19,11 @@ This project models, simulates, and prepares for the physical implementation of 
 ✅Design Choice Review <br>
 ✅Schematics <br>
 ✅Material Ordered <br>
-⏳Material Recieved <br>
-⏳Tool Kit <br>
+✅Material Recieved <br>
+✅Tool Kit <br>
 ⏳Simulation (Toolkit & CFD) <br>
-⏳CAD <br>
-🧱Build <br>
+✅CAD <br>
+⏳Build <br>
 🧱Results <br>
 
 ---
