@@ -38,12 +38,13 @@
       text-shadow: 0 0 3px var(--forest-green);
       line-height: 1.1;
     }
-
+    
     .diagnostics {
-      padding-top: 20px;
+      padding-bottom: 20px;
       font-size: 1em;
       color: var(--dew-grey);
     }
+
 
     .terminal-panel {
       width: 50%;
@@ -163,54 +164,53 @@
                    ((!))
 
 </pre>
-      <div class="diagnostics">
-        <div>> SYSTEM DIAGNOSTICS:</div>
-        <div>  • Tank Pressure:     800 psi</div>
-        <div>  • Valve Status:      STANDBY</div>
-        <div>  • Uplink:            SECURE</div>
-        <div>  • Gas Type:          CO₂</div>
-      </div>
+  <div class="terminal-panel">
+    <div class="diagnostics">
+      <div>> SYSTEM DIAGNOSTICS:</div>
+      <div>  • Tank Pressure:     800 psi</div>
+      <div>  • Valve Status:      STANDBY</div>
+      <div>  • Uplink:            SECURE</div>
+      <div>  • Gas Type:          CO₂</div>
     </div>
-
-    <div class="terminal-panel">
-      <div class="panel-box">
-        <form method="post" onsubmit="startCountdownBar();">
-          <div class="line">
-            <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
-          </div>
-          <div class="input-line">
-            <input type="number" step="0.1" name="duration" min="0.1" max="5" required />
-          </div>
-
-          <div class="line">
-            <span class="cmd-label">arenyx@thruster</span>:~$ Arm system? [y/n]
-            <input type="checkbox" id="armed" onchange="toggleFireButton()" />
-          </div>
-
-          <div class="line input-line">
-            <span class="cmd-label">arenyx@thruster</span>:~$</span>
-            <button id="fireBtn" type="submit" disabled>fire_valve()</button>
-            <span class="caret"></span>
-          </div>
-
-          {% if message %}
-            <div class="line">→ {{ message }}</div>
-          {% endif %}
-
-          <div id="asciiCountdown"></div>
-
-          {% if logs %}
-          <div class="log-block">
-            <div class="line">[LOG: Last 5 firings]</div>
-            {% for log in logs %}
-              <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
-            {% endfor %}
-          </div>
-          {% endif %}
-        </form>
-      </div>
+  
+    <div class="panel-box">
+      <form method="post" onsubmit="startCountdownBar();">
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
+        </div>
+        <div class="input-line">
+          <input type="number" step="0.1" name="duration" min="0.1" max="5" required />
+        </div>
+  
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Arm system? [y/n]
+          <input type="checkbox" id="armed" onchange="toggleFireButton()" />
+        </div>
+  
+        <div class="line input-line">
+          <span class="cmd-label">arenyx@thruster</span>:~$
+          <button id="fireBtn" type="submit" disabled>fire_valve()</button>
+          <span class="caret"></span>
+        </div>
+  
+        {% if message %}
+          <div class="line">→ {{ message }}</div>
+        {% endif %}
+  
+        <div id="asciiCountdown"></div>
+  
+        {% if logs %}
+        <div class="log-block">
+          <div class="line">[LOG: Last 5 firings]</div>
+          {% for log in logs %}
+            <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </form>
     </div>
   </div>
+
 
   <script>
     function toggleFireButton() {
