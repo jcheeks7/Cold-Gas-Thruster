@@ -11,6 +11,7 @@
       --moss-veil: #A8D5BA;
       --sage-whisper: #C1D0B5;
       --dew-grey: #B0C4DE;
+      --alert-red: #8B0000;
     }
 
     body {
@@ -20,6 +21,27 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
+    }
+
+    #boot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--soil-black);
+      color: var(--forest-green);
+      font-family: monospace;
+      padding: 40px;
+      z-index: 999;
+      white-space: pre-line;
+      overflow-y: auto;
+      animation: fadeOut 4s ease-out forwards;
+      animation-delay: 3.5s;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
     }
 
     .screen {
@@ -78,6 +100,15 @@
       border: 1px dashed var(--forest-green);
     }
 
+    .ascii-box.pulse {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { border-color: var(--forest-green); }
+      50% { border-color: var(--sage-whisper); }
+    }
+
     .ascii-button {
       display: inline-block;
       color: var(--forest-green);
@@ -119,61 +150,33 @@
       color: var(--forest-green);
       white-space: pre;
       font-size: 14px;
-      margin-bottom: 10px;
+      margin: 20px 0 10px 0;
     }
   </style>
 </head>
 <body>
+  <div id="boot">
+    INITIALIZING SYSTEM...
+    BOOT SECTOR VERIFIED.
+    BIOS DATE: 2075-07-22
+    SECURE LINK ESTABLISHED.
+    PRESSURE MANIFOLD SYNCED.
+    > SYSTEM READY.
+  </div>
   <div class="screen">
     <div class="ascii-logo">
-<pre>
- █████╗ ██████╗ ███████╗███╗   ██╗██╗   ██╗██╗  ██╗
-██╔══██╗██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝╚██╗██╔╝
-███████║██████╔╝█████╗  ██╔██╗ ██║ ╚████╔╝  ╚███╔╝ 
-██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║  ╚██╔╝   ██╔██╗ 
-██║  ██║██║  ██║███████╗██║ ╚████║   ██║   ██╔╝ ██╗
-╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝                                                          
-
-       [ SYSTEM ONLINE — PRESSURE STABLE ]
- .      .      .      .      .      .      .      .      .      .      .
-.                               .       .       .       .       .       .
-   .        .        .        .        .        .        .        .        .
-     .         .         .        _......____._        .         .
-   .          .          . ..--'"" .           """"""---...          .
-                   _...--""        ................       `-.              .
-                .-'        ...:'::::;:::%:.::::::_;;:...     `-.
-             .-'       ..::::'''''   _...---'"""":::+;_::.      `.      .
-  .        .' .    ..::::'      _.-""               :::)::.       `.
-         .      ..;:::'     _.-'         .             f::'::    o  _
-        /     .:::%'  .  .-"                        .-.  ::;;:.   /" "x
-  .   .'  ""::.::'    .-"     _.--'"""-.           (   )  ::.::  |_.-' |
-     .'    ::;:'    .'     .-" .d@@b.   \    .    . `-'   ::%::   \_ _/    .
-    .'    :,::'    /   . _'    8@@@@8   j      .-'       :::::      " o
-    | .  :.%:' .  j     (_)    `@@@P'  .'   .-"         ::.::    .  f
-    |    ::::     (        -..____...-'  .-"          .::::'       /
-.   |    `:`::    `.                ..--'        .  .::'::   .    /
-    j     `:::::    `-._____...---""             .::%:::'       .'  .
-     \      ::.:%..             .       .    ...:,::::'       .'
- .    \       `:::`:..                ....::::.::::'       .-'          .
-       \    .   ``:::%::`::.......:::::%::.::::''       .-'
-      . `.        . ``::::::%::::.::;;:::::'''      _.-'          .
-  .       `-..     .    .   ````'''''         . _.-'     .          .
-         .    ""--...____    .   ______......--' .         .         .
-  .        .        .    """"""""     .        .        .        .        .
- .       .       .       .       .       .       .       .       .
-     .      .      .      .      .      .      .      .      .      .      .
+      <!-- ASCII leaf logo here -->
+      <pre>... your logo ...</pre>
     </div>
 
     <div class="terminal-panel">
       <div class="ascii-header">
-
-  _______ _    _ _____  _    _  _____ _______ ______ _____  
- |__   __| |  | |  __ \| |  | |/ ____|__   __|  ____|  __ \ 
-    | |  | |__| | |__) | |  | | (___    | |  | |__  | |__) |
-    | |  |  __  |  _  /| |  | |\___ \   | |  |  __| |  _  / 
-    | |  | |  | | | \ \| |__| |____) |  | |  | |____| | \ \ 
-    |_|  |_|  |_|_|  \_\\____/|_____/   |_|  |______|_|  \_\
-                                                  
+ _______ _    _ _____  _____  _____  ______ _____  _____  
+|__   __| |  | |  __ \|  __ \|  __ \|  ____|  __ \|  __ \ 
+   | |  | |__| | |__) | |__) | |__) | |__  | |__) | |__) |
+   | |  |  __  |  _  /|  ___/|  _  /|  __| |  _  /|  ___/ 
+   | |  | |  | | | \ \| |    | | \ \| |____| | \ \| |     
+   |_|  |_|  |_|_|  \_\_|    |_|  \_\______|_|  \_\_|     
       </div>
 
       <form method="post" onsubmit="startCountdownBar();">
@@ -181,7 +184,7 @@
           <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
         </div>
         <div class="input-line">
-          <div class="ascii-box">
+          <div class="ascii-box" id="pulseBox">
             <input id="duration" type="number" step="0.1" name="duration" min="0.1" max="5" required style="background: transparent; border: none; color: var(--dew-grey); width: 60px; text-align: center;" /> s
           </div>
         </div>
@@ -214,19 +217,18 @@
       </form>
 
       <div class="ascii-header">
-
- ____ ___    _    ____ _   _  ___  ____ _____ ___ ____ ____  
-|  _ |_ _|  / \  / ___| \ | |/ _ \/ ___|_   _|_ _/ ___/ ___| 
-| | | | |  / _ \| |  _|  \| | | | \___ \ | |  | | |   \___ \ 
-| |_| | | / ___ | |_| | |\  | |_| |___) || |  | | |___ ___) |
-|____|___/_/   \_\____|_| \_|\___/|____/ |_| |___\____|____/ 
-                                                             
+ ______  _____  _____  _____  _____  _____  _____ 
+|  __ \|  __ \|  __ \|  __ \|  __ \|_   _|/ ____|
+| |  | | |  | | |  | | |  | | |__) | | | | (___  
+| |  | | |  | | |  | | |  | |  ___/  | |  \___ \ 
+| |__| | |__| | |__| | |__| | |     _| |_ ____) |
+|_____/|_____/|_____/|_____/|_|    |_____|_____/ 
       </div>
 
       <div class="diagnostics">
         <div>> SYSTEM DIAGNOSTICS:</div>
-        <div>  • Tank Pressure:     800 psi</div>
-        <div>  • Valve Status:      STANDBY</div>
+        <div>  • Tank Pressure:     <span id="tankPressure">800 psi</span></div>
+        <div>  • Valve Status:      <span id="valveStatus">STANDBY</span></div>
         <div>  • Uplink:            SECURE</div>
         <div>  • Gas Type:          CO₂</div>
       </div>
@@ -236,16 +238,22 @@
   <script>
     function toggleFireButton() {
       const armed = document.getElementById('armed').checked;
-      document.getElementById('fireBtn').disabled = !armed;
+      const fireBtn = document.getElementById('fireBtn');
+      const pulseBox = document.getElementById('pulseBox');
+      fireBtn.disabled = !armed;
+      pulseBox.classList.toggle('pulse', armed);
     }
 
     function startCountdownBar() {
       const countdownDiv = document.getElementById("asciiCountdown");
+      const valveStatus = document.getElementById("valveStatus");
+      const pressure = document.getElementById("tankPressure");
       let duration = parseFloat(document.querySelector('input[name="duration"]').value);
       let totalBars = 20;
       let stepTime = (duration * 1000) / totalBars;
       let current = 0;
 
+      valveStatus.innerText = "FIRING...";
       countdownDiv.innerText = "[FIRING] [                    ]";
 
       const interval = setInterval(() => {
@@ -256,10 +264,15 @@
         if (current >= totalBars) {
           clearInterval(interval);
           countdownDiv.innerText = "[✓] Valve fire complete.";
+          valveStatus.innerText = "STANDBY";
+
+          let psi = parseInt(pressure.innerText);
+          psi -= Math.floor(duration * 10);
+          if (psi < 500) psi = 800;
+          pressure.innerText = psi + " psi";
         }
       }, stepTime);
     }
   </script>
 </body>
 </html>
-
