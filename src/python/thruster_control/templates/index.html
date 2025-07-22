@@ -9,8 +9,8 @@
 
   <style>
     body {
-      background-color: #0B0C10; /* Abyss Black */
-      color: #F5F5F5;            /* Stellar White */
+      background-color: #0B0C10;
+      color: #F5F5F5;
       font-family: 'Space Grotesk', 'Open Sans', sans-serif;
       text-align: center;
       padding: 50px;
@@ -19,21 +19,21 @@
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: 2.8em;
-      color: #FFD700; /* Halo Gold */
+      color: #FFD700;
       letter-spacing: 2px;
       margin-bottom: 0.2em;
     }
 
     .motto {
       font-family: 'Cinzel', serif;
-      color: #8B0000; /* Deep Crimson */
+      color: #8B0000;
       font-size: 1.1em;
       margin-bottom: 2em;
     }
 
     .status {
       font-size: 1.1em;
-      color: #A9A9A9; /* Ash Grey */
+      color: #A9A9A9;
       margin-bottom: 1.5em;
     }
 
@@ -48,7 +48,7 @@
       background-color: #1a1b1e;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.2); /* Halo glow */
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
       margin-bottom: 30px;
     }
 
@@ -82,12 +82,45 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     button:disabled {
       background-color: #555;
       color: #aaa;
       cursor: not-allowed;
+    }
+
+    #fireBtn.firing {
+      animation: glowPulse 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from {
+        box-shadow: 0 0 10px #FFD700;
+      }
+      to {
+        box-shadow: 0 0 25px #FFD700, 0 0 15px #FFD700 inset;
+      }
+    }
+
+    #countdown {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #F5F5F5;
+      margin-top: 20px;
+    }
+
+    #emergency {
+      margin-top: 20px;
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
     }
 
     table {
@@ -121,10 +154,51 @@
   </style>
 
   <script>
+    let countdownInterval;
+
     function toggleFireButton() {
       const armed = document.getElementById('armed').checked;
       document.getElementById('fireBtn').disabled = !armed;
     }
+
+    function startCountdown(duration) {
+      const fireBtn = document.getElementById('fireBtn');
+      const countdownDisplay = document.getElementById('countdown');
+      let timeLeft = duration;
+
+      fireBtn.classList.add('firing');
+      fireBtn.disabled = true;
+      countdownDisplay.textContent = `🔥 Igniting... ${timeLeft.toFixed(1)}s`;
+      
+      countdownInterval = setInterval(() => {
+        timeLeft -= 0.1;
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          countdownDisplay.textContent = "✅ Valve firing complete.";
+          fireBtn.classList.remove('firing');
+          fireBtn.disabled = false;
+          document.getElementById('armed').checked = false;
+        } else {
+          countdownDisplay.textContent = `🔥 Igniting... ${timeLeft.toFixed(1)}s`;
+        }
+      }, 100);
+    }
+
+    function emergencyShutdown() {
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = "🚨 Emergency Shutdown Activated!";
+      document.getElementById('fireBtn').classList.remove('firing');
+      document.getElementById('fireBtn').disabled = false;
+      document.getElementById('armed').checked = false;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        const duration = parseFloat(document.querySelector('input[name="duration"]').value);
+        startCountdown(duration);
+      });
+    });
   </script>
 </head>
 
@@ -145,6 +219,8 @@
     <input type="checkbox" id="armed" onchange="toggleFireButton()">
     <label for="armed"><strong>Arm Valve</strong></label><br>
     <button id="fireBtn" type="submit" disabled>Fire Valve</button>
+    <div id="countdown"></div>
+    <button id="emergency" type="button" onclick="emergencyShutdown()">EMERGENCY SHUTDOWN</button>
   </form>
 
   {% if logs %}
