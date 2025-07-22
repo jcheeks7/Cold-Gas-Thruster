@@ -1,34 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Cold Gas Thruster Control</title>
+  <meta charset="UTF-8">
+  <title>Arenyx Tech – Cold Gas Thruster</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond:wght@500&family=Orbitron:wght@600&family=Space+Grotesk&display=swap" rel="stylesheet">
+
   <style>
     body {
-      background-color: #0b0c10;
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #0B0C10; /* Abyss Black */
+      color: #F5F5F5;            /* Stellar White */
+      font-family: 'Space Grotesk', 'Open Sans', sans-serif;
       text-align: center;
       padding: 50px;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
-      color: #66fcf1;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8em;
+      color: #FFD700; /* Halo Gold */
+      letter-spacing: 2px;
+      margin-bottom: 0.2em;
     }
 
-    p.status {
-      font-size: 1.2em;
+    .motto {
+      font-family: 'Cinzel', serif;
+      color: #8B0000; /* Deep Crimson */
+      font-size: 1.1em;
       margin-bottom: 2em;
-      color: #45a29e;
+    }
+
+    .status {
+      font-size: 1.1em;
+      color: #A9A9A9; /* Ash Grey */
+      margin-bottom: 1.5em;
+    }
+
+    .msg {
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 1.5em;
     }
 
     form {
       display: inline-block;
-      background-color: #1f2833;
-      padding: 20px;
+      background-color: #1a1b1e;
+      padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 0 20px #66fcf1;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.2); /* Halo glow */
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1em;
     }
 
     input[type="number"] {
@@ -37,6 +63,8 @@
       width: 100px;
       border-radius: 6px;
       border: none;
+      background-color: #0B0C10;
+      color: #F5F5F5;
       margin-right: 10px;
     }
 
@@ -48,37 +76,47 @@
     button {
       padding: 10px 20px;
       font-size: 1em;
-      background-color: #66fcf1;
+      background-color: #FFD700;
+      color: #0B0C10;
       border: none;
       border-radius: 6px;
-      color: #0b0c10;
       cursor: pointer;
+      font-weight: bold;
     }
 
     button:disabled {
-      background-color: #888;
+      background-color: #555;
+      color: #aaa;
       cursor: not-allowed;
     }
 
     table {
       margin: 30px auto;
-      width: 70%;
+      width: 75%;
       border-collapse: collapse;
+      font-size: 0.95em;
     }
 
     th, td {
-      border: 1px solid #45a29e;
-      padding: 10px;
+      border: 1px solid #A9A9A9;
+      padding: 12px;
     }
 
     th {
-      background-color: #1f2833;
+      background-color: #1f2023;
+      font-family: 'Orbitron', sans-serif;
+      color: #FFD700;
     }
 
-    .msg {
-      color: #66fcf1;
-      font-weight: bold;
-      margin-top: 20px;
+    tr:nth-child(even) {
+      background-color: #131417;
+    }
+
+    .form-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3em;
+      color: #F5F5F5;
+      margin-bottom: 15px;
     }
   </style>
 
@@ -89,14 +127,20 @@
     }
   </script>
 </head>
+
 <body>
-  <h1>Cold Gas Thruster</h1>
+  <h1>ARENXY TECH</h1>
+  <div class="motto">Ad Astra, Per Virtutem</div>
+
   <p class="status">Status: {{ status }}</p>
+
   {% if message %}
     <p class="msg">{{ message }}</p>
   {% endif %}
+
   <form method="post">
-    <label for="duration">Fire Duration (s):</label>
+    <div class="form-header">Enter Fire Duration</div>
+    <label for="duration">Duration (s):</label>
     <input type="number" step="0.1" name="duration" min="0.1" max="5" required><br><br>
     <input type="checkbox" id="armed" onchange="toggleFireButton()">
     <label for="armed"><strong>Arm Valve</strong></label><br>
@@ -104,7 +148,7 @@
   </form>
 
   {% if logs %}
-    <h2>Valve Fire Log</h2>
+    <h2 style="font-family: 'Orbitron'; color: #FFD700;">Valve Fire Log</h2>
     <table>
       <tr><th>Timestamp</th><th>Duration (s)</th></tr>
       {% for log in logs %}
