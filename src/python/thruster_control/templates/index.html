@@ -2,22 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ARENYX // Thruster Control</title>
+  <title>ARENYX TECH // Thruster Control</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    /* … your existing styles … */
-
-    /* Confirmation Modal – start hidden */
+    :root {
+      --soil-black: #0A0E0A;
+      --forest-green: #228B22;
+      --moss-veil: #A8D5BA;
+      --sage-whisper: #C1D0B5;
+      --dew-grey: #B0C4DE;
+    }
+    body {
+      background-color: var(--soil-black);
+      color: var(--forest-green);
+      font-family: monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .screen {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+    .ascii-logo {
+      width: 50%;
+      white-space: pre;
+      font-size: 18px;
+      color: var(--forest-green);
+      text-shadow: 0 0 3px var(--forest-green);
+      line-height: 1.1;
+      overflow-y: auto;
+    }
+    .terminal-panel {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 30px;
+      font-size: 1.1em;
+      position: relative;
+    }
+    .diagnostics {
+      padding-top: 20px;
+      font-size: 1em;
+      color: var(--dew-grey);
+    }
+    .line {
+      margin-bottom: 12px;
+    }
+    .input-line {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .caret {
+      width: 10px;
+      height: 1em;
+      background: var(--forest-green);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      50% { background: transparent; }
+    }
+    input[type="number"] {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--forest-green);
+      color: var(--dew-grey);
+      width: 80px;
+      font-family: monospace;
+      font-size: 1em;
+    }
+    input:focus {
+      outline: none;
+    }
+    button {
+      background: none;
+      border: none;
+      color: var(--forest-green);
+      font-family: monospace;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      color: var(--dew-grey);
+    }
+    .log-block {
+      margin-top: 30px;
+    }
+    .log-line {
+      color: var(--sage-whisper);
+      font-size: 0.95em;
+    }
+    .cmd-label {
+      color: var(--forest-green);
+    }
+    #asciiCountdown {
+      font-family: monospace;
+      color: var(--moss-veil);
+      padding-top: 10px;
+      white-space: pre;
+    }
+    #userMessage.info {
+      color: var(--moss-veil);
+    }
+    #userMessage.error {
+      color: red;
+    }
+    #userMessage {
+      display: none;
+      margin-bottom: 12px;
+    }
     #confirmModal {
-      display: none;             /* <-- hide by default */
+      display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0,0,0,0.75);
       align-items: center;
       justify-content: center;
     }
-    /* When we add .show, it becomes flex */
     #confirmModal.show {
       display: flex;
     }
@@ -34,10 +142,75 @@
 </head>
 <body>
   <div class="screen">
-    <!-- … ascii logo + terminal-panel up top … -->
-  </div>
+    <div class="ascii-logo">
+<pre>
+ █████╗ ██████╗ ███████╗███╗   ██╗██╗   ██╗██╗  ██╗
+██╔══██╗██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝╚██╗██╔╝
+███████║██████╔╝█████╗  ██╔██╗ ██║ ╚████╔╝  ╚███╔╝ 
+██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║  ╚██╔╝   ██╔██╗ 
+██║  ██║██║  ██║███████╗██║ ╚████║   ██║   ██╔╝ ██╗
+╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
 
-  <!-- remove hidden attr; modal starts hidden via CSS -->
+       [ SYSTEM ONLINE — PRESSURE STABLE ]
+
+                         @@@
+                    @@@@@@@@@
+                 @@@@!#@@@!#@@@@
+              @@@!     !!     !@@@
+           @@@!    ^     ^^     !@@@
+          @@!    ^^   ||   ^^     !@@
+         @@!   ^^^   ||||   ^^^     !@@
+         @@!  ^^^^   ||||   ^^^^     !@@
+          @@! ^^^    ||    ^^^     !@@
+           @@!^^^    ||    ^^^   !@@@
+             @@!!^^^^^^^^^^^^!!@@@
+               @@@!!!!!!!@@@@@@
+                  @@@&&&@@@
+                     &&&
+                     &&&
+                    (!)
+                   ((!))
+</pre>
+    </div>
+    <div class="terminal-panel">
+      <form id="controlForm">
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
+        </div>
+        <div class="input-line">
+          <input type="number" step="0.1" name="duration" min="0.1" max="5" required />
+        </div>
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Arm system? [y/n]
+          <input type="checkbox" id="armed" onchange="toggleFireButton()" />
+        </div>
+        <div class="line input-line">
+          <span class="cmd-label">arenyx@thruster</span>:~$
+          <button id="fireBtn" type="button" disabled>fire_valve()</button>
+          <span class="caret"></span>
+        </div>
+        <div id="userMessage"></div>
+        <div id="asciiCountdown"></div>
+        {% if logs %}
+        <div class="log-block">
+          <div class="line">[LOG: Last 5 firings]</div>
+          <div id="logsContainer">
+            {% for log in logs %}
+              <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </form>
+      <div class="diagnostics">
+        <div>> SYSTEM DIAGNOSTICS:</div>
+        <div>  • Tank Pressure:     800 psi</div>
+        <div>  • Valve Status:      <span class="valve-status">STANDBY</span></div>
+        <div>  • Uplink:            SECURE</div>
+        <div>  • Gas Type:          CO₂</div>
+      </div>
+    </div>
+  </div>
   <div id="confirmModal">
     <div class="modal-content">
       <p>Fire valve for <strong><span id="confirmDur"></span>s</strong>?</p>
@@ -45,114 +218,92 @@
       <button id="confirmNo">No</button>
     </div>
   </div>
-
   <script>
-    /* helper: show banner */
-    function showMessage(text, type='info') {
-      const el = document.getElementById('userMessage');
-      el.textContent = text;
-      el.className = type;
-      el.style.display = 'block';
+    function showMessage(text,type){
+      var el=document.getElementById('userMessage');
+      el.textContent=text;
+      el.className=type;
+      el.style.display='block';
     }
-
-    /* enable fire button only if armed */
-    function toggleFireButton() {
-      document.getElementById('fireBtn').disabled = !document.getElementById('armed').checked;
+    function toggleFireButton(){
+      document.getElementById('fireBtn').disabled=!document.getElementById('armed').checked;
     }
-
-    /* lock/unlock controls */
-    function toggleControls(disabled) {
-      document.querySelector('input[name="duration"]').disabled = disabled;
-      document.getElementById('armed').disabled = disabled;
-      document.getElementById('fireBtn').disabled = disabled;
+    function toggleControls(disabled){
+      document.querySelector('input[name="duration"]').disabled=disabled;
+      document.getElementById('armed').disabled=disabled;
+      document.getElementById('fireBtn').disabled=disabled;
     }
-
-    /* countdown bar */
-    function runCountdown(duration) {
-      const countdownDiv = document.getElementById("asciiCountdown");
-      const totalBars = 20;
-      const stepTime = (duration * 1000) / totalBars;
-      let current = 0;
-      countdownDiv.textContent = "[FIRING] [                    ]";
-      return new Promise(resolve => {
-        const interval = setInterval(() => {
+    function runCountdown(duration){
+      var countdownDiv=document.getElementById('asciiCountdown');
+      var totalBars=20;
+      var stepTime=(duration*1000)/totalBars;
+      var current=0;
+      countdownDiv.textContent='[FIRING] ['+' '.repeat(totalBars)+']';
+      return new Promise(function(resolve){
+        var interval=setInterval(function(){
           current++;
-          const filled = "=".repeat(current);
-          const empty  = " ".repeat(totalBars - current);
-          countdownDiv.textContent = `[FIRING] [${filled}${empty}]`;
-          if (current >= totalBars) {
+          var filled='='.repeat(current);
+          var empty=' '.repeat(totalBars-current);
+          countdownDiv.textContent='[FIRING] ['+filled+empty+']';
+          if(current>=totalBars){
             clearInterval(interval);
-            countdownDiv.textContent = "[✓] Valve fire complete.";
+            countdownDiv.textContent='[✓] Valve fire complete.';
             resolve();
           }
-        }, stepTime);
+        },stepTime);
       });
     }
-
-    /* poll valve status */
-    let statusInterval;
-    function pollValveStatus() {
+    var statusInterval;
+    function pollValveStatus(){
       clearInterval(statusInterval);
-      statusInterval = setInterval(async () => {
-        try {
-          const res = await fetch('/api/valve/status');
-          const { open } = await res.json();
-          document.querySelector('.valve-status').textContent = open ? 'OPEN' : 'CLOSED';
-        } catch {}
-      }, 1000);
+      statusInterval=setInterval(function(){
+        fetch('/api/valve/status').then(function(res){return res.json()}).then(function(data){
+          document.querySelector('.valve-status').textContent=data.open?'OPEN':'CLOSED';
+        }).catch(function(){});
+      },1000);
     }
-
-    /* append to log */
-    function appendLog(timestamp, duration) {
-      const container = document.getElementById('logsContainer');
-      if (!container) return;
-      const div = document.createElement('div');
-      div.className = 'log-line';
-      div.textContent = `[${timestamp}] → ${duration} seconds`;
+    function appendLog(timestamp,duration){
+      var container=document.getElementById('logsContainer');
+      if(!container)return;
+      var div=document.createElement('div');
+      div.className='log-line';
+      div.textContent='['+timestamp+'] → '+duration+' seconds';
       container.prepend(div);
     }
-
-    /* modal toggling */
-    const confirmModal = document.getElementById('confirmModal');
-    const fireBtn      = document.getElementById('fireBtn');
-    const confirmYes   = document.getElementById('confirmYes');
-    const confirmNo    = document.getElementById('confirmNo');
-
-    fireBtn.addEventListener('click', () => {
-      const dur = document.querySelector('input[name="duration"]').value;
-      document.getElementById('confirmDur').textContent = dur;
-      confirmModal.classList.add('show');   // <-- show it
+    var confirmModal=document.getElementById('confirmModal');
+    var fireBtn=document.getElementById('fireBtn');
+    var confirmYes=document.getElementById('confirmYes');
+    var confirmNo=document.getElementById('confirmNo');
+    fireBtn.addEventListener('click',function(){
+      var dur=document.querySelector('input[name="duration"]').value;
+      document.getElementById('confirmDur').textContent=dur;
+      confirmModal.classList.add('show');
     });
-
-    confirmNo.addEventListener('click', () => {
-      confirmModal.classList.remove('show'); // <-- hide it
+    confirmNo.addEventListener('click',function(){
+      confirmModal.classList.remove('show');
     });
-
-    confirmYes.addEventListener('click', async () => {
+    confirmYes.addEventListener('click',function(){
       confirmModal.classList.remove('show');
       toggleControls(true);
-      showMessage('Firing…', 'info');
-      try {
-        const duration = parseFloat(document.querySelector('input[name="duration"]').value);
-        const res = await fetch('/api/valve/fire', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ duration })
-        });
-        const { success, message } = await res.json();
-        if (!success) throw new Error(message);
-
+      showMessage('Firing…','info');
+      var duration=parseFloat(document.querySelector('input[name="duration"]').value);
+      fetch('/api/valve/fire',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({duration:duration})
+      }).then(function(res){return res.json()}).then(function(data){
+        if(!data.success)throw new Error(data.message);
         pollValveStatus();
-        await runCountdown(duration);
-
-        const ts = new Date().toLocaleTimeString();
-        appendLog(ts, duration);
-        showMessage('Fire complete.', 'info');
-      } catch (err) {
-        showMessage(`Error: ${err.message}`, 'error');
-      } finally {
+        return runCountdown(duration);
+      }).then(function(){
+        var ts=new Date().toLocaleTimeString();
+        appendLog(ts,document.querySelector('input[name="duration"]').value);
+        showMessage('Fire complete.','info');
+      }).catch(function(err){
+        showMessage('Error: '+err.message,'error');
+      }).finally(function(){
         toggleControls(false);
-      }
+      });
     });
   </script>
 </body>
