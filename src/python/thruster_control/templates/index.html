@@ -221,7 +221,7 @@
         current++;
         const filled = "=".repeat(current);
         const empty = " ".repeat(totalBars - current);
-        countdownDiv.innerText = [FIRING] [${filled}${empty}];
+        countdownDiv.innerText = `[FIRING] [${filled}${empty}]`;
         if (current >= totalBars) {
           clearInterval(interval);
           countdownDiv.innerText = "[✓] Valve fire complete.";
