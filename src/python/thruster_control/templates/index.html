@@ -2,279 +2,179 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Arenyx Tech – Cold Gas Thruster</title>
+  <title>ARENXY TECH // Thruster Control</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond:wght@500&family=Orbitron:wght@600&family=Space+Grotesk&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --black: #0B0C10;
-      --white: #F5F5F5;
-      --grey: #A9A9A9;
-      --gold: #FFD700;
-      --red: #8B0000;
-    }
-
-    * {
-      box-sizing: border-box;
+      --soil-black: #0A0E0A;
+      --forest-green: #228B22;
+      --moss-veil: #A8D5BA;
+      --sage-whisper: #C1D0B5;
+      --dew-grey: #B0C4DE;
     }
 
     body {
+      background-color: var(--soil-black);
+      color: var(--forest-green);
+      font-family: monospace;
       margin: 0;
-      padding: 40px 20px;
-      background-color: var(--black);
-      color: var(--white);
-      font-family: 'Space Grotesk', 'Open Sans', sans-serif;
+      padding: 0;
+      overflow: hidden;
     }
 
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.2em;
-      color: var(--gold);
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    .subtext {
-      text-align: center;
-      color: var(--grey);
-      font-size: 1em;
-      margin-bottom: 40px;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #111215;
+    .screen {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.05);
+      box-sizing: border-box;
     }
 
-    label {
-      display: block;
-      text-align: left;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: var(--grey);
+    .ascii-logo {
+      width: 40%;
+      white-space: pre;
+      line-height: 1.2;
+      color: var(--forest-green);
+      text-shadow: 0 0 3px var(--forest-green);
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .terminal-panel {
+      width: 60%;
+      padding-left: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: var(--moss-veil);
+    }
+
+    .line {
+      margin-bottom: 10px;
+    }
+
+    .input-line {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .caret {
+      width: 10px;
+      height: 1em;
+      background: var(--forest-green);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { background: transparent; }
     }
 
     input[type="number"] {
-      width: 100%;
-      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--forest-green);
+      color: var(--dew-grey);
+      width: 80px;
+      font-family: monospace;
       font-size: 1em;
-      border: 1px solid #2a2b2f;
-      border-radius: 6px;
-      background-color: var(--black);
-      color: var(--white);
-      margin-bottom: 20px;
     }
 
-    .toggle-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .toggle-wrapper label {
-      margin: 0;
-    }
-
-    .toggle {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 28px;
-    }
-
-    .toggle input {
-      display: none;
-    }
-
-    .slider {
-      position: absolute;
-      top: 0; left: 0;
-      right: 0; bottom: 0;
-      background-color: #555;
-      border-radius: 34px;
-      transition: 0.3s;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      border-radius: 50%;
-      transition: 0.3s;
-    }
-
-    .toggle input:checked + .slider {
-      background-color: var(--gold);
-    }
-
-    .toggle input:checked + .slider:before {
-      transform: translateX(22px);
+    input:focus {
+      outline: none;
     }
 
     button {
-      width: 100%;
-      padding: 14px;
-      font-size: 1em;
-      font-weight: bold;
+      background: none;
       border: none;
-      border-radius: 6px;
-      background-color: var(--gold);
-      color: var(--black);
+      color: var(--forest-green);
+      font-family: monospace;
+      font-size: 1em;
       cursor: pointer;
-      transition: background 0.3s;
+      padding: 0 5px;
     }
 
-    button:disabled {
-      background-color: #444;
-      color: #aaa;
-      cursor: not-allowed;
+    button:hover {
+      color: var(--dew-grey);
     }
 
-    #countdown {
-      margin-top: 15px;
-      font-size: 1.2em;
-      font-weight: 600;
-      color: var(--white);
-      text-align: center;
+    .log-block {
+      margin-top: 30px;
     }
 
-    #emergency {
-      margin-top: 15px;
-      background-color: var(--red);
-      color: white;
-    }
-
-    .log-table {
-      margin-top: 40px;
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95em;
-    }
-
-    .log-table th,
-    .log-table td {
-      border: 1px solid #2a2b2f;
-      padding: 10px;
-      text-align: left;
-    }
-
-    .log-table th {
-      color: var(--gold);
-      font-family: 'Orbitron', sans-serif;
+    .log-line {
+      color: var(--sage-whisper);
       font-size: 0.9em;
-      background-color: #1a1b1e;
     }
 
-    .log-table tr:nth-child(even) {
-      background-color: #101114;
+    .cmd-label {
+      color: var(--forest-green);
     }
-
-    .msg {
-      text-align: center;
-      margin-bottom: 20px;
-      font-weight: 500;
-      color: var(--gold);
-    }
-
   </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="ascii-logo">
+<pre>
+        &&&&&       
+      &&&&&&&&&     
+     &&&  &  &&&    
+     &&   &   &&    
+      &&&&&&&&&     
+        &&&&&        
+
+    █████╗ ██████╗ ███████╗███╗   ██╗██╗   ██╗██╗  ██╗
+   ██╔══██╗██╔══██╗██╔════╝████╗  ██║██║   ██║╚██╗██╔╝
+   ███████║██████╔╝█████╗  ██╔██╗ ██║██║   ██║ ╚███╔╝ 
+   ██╔══██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║   ██║ ██╔██╗ 
+   ██║  ██║██║     ███████╗██║ ╚████║╚██████╔╝██╔╝ ██╗
+   ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝
+
+          [ SYSTEM ONLINE - PRESSURE STABLE ]
+</pre>
+    </div>
+
+    <div class="terminal-panel">
+      <form method="post">
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
+        </div>
+        <div class="input-line">
+          <input type="number" step="0.1" name="duration" min="0.1" max="5" required />
+        </div>
+
+        <div class="line">
+          <span class="cmd-label">arenyx@thruster</span>:~$ Arm system? [y/n]
+          <input type="checkbox" id="armed" onchange="toggleFireButton()" />
+        </div>
+
+        <div class="line input-line">
+          <span class="cmd-label">arenyx@thruster</span>:~$</span>
+          <button id="fireBtn" type="submit" disabled>fire_valve()</button>
+          <span class="caret"></span>
+        </div>
+
+        {% if message %}
+        <div class="line">→ {{ message }}</div>
+        {% endif %}
+
+        {% if logs %}
+        <div class="log-block">
+          <div class="line">[LOG: Last 5 firings]</div>
+          {% for log in logs %}
+          <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
 
   <script>
-    let countdownInterval;
-
     function toggleFireButton() {
       const armed = document.getElementById('armed').checked;
       document.getElementById('fireBtn').disabled = !armed;
     }
-
-    function startCountdown(duration) {
-      const countdownDisplay = document.getElementById('countdown');
-      const fireBtn = document.getElementById('fireBtn');
-      let timeLeft = duration;
-
-      fireBtn.disabled = true;
-      countdownDisplay.textContent = `Firing... ${timeLeft.toFixed(1)}s`;
-
-      countdownInterval = setInterval(() => {
-        timeLeft -= 0.1;
-        if (timeLeft <= 0) {
-          clearInterval(countdownInterval);
-          countdownDisplay.textContent = "Complete.";
-          fireBtn.disabled = false;
-          document.getElementById('armed').checked = false;
-          toggleFireButton();
-        } else {
-          countdownDisplay.textContent = `Firing... ${timeLeft.toFixed(1)}s`;
-        }
-      }, 100);
-    }
-
-    function emergencyShutdown() {
-      clearInterval(countdownInterval);
-      document.getElementById('countdown').textContent = "🚨 Emergency Shutdown Activated";
-      document.getElementById('fireBtn').disabled = false;
-      document.getElementById('armed').checked = false;
-      toggleFireButton();
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const form = document.querySelector("form");
-      form.addEventListener("submit", (e) => {
-        const duration = parseFloat(document.querySelector('input[name="duration"]').value);
-        startCountdown(duration);
-      });
-    });
   </script>
-</head>
-<body>
-  <h1>ARENXY TECH</h1>
-  <div class="subtext">Cold Gas Thruster Control Panel</div>
-
-  <div class="container">
-    <form method="post">
-      <label for="duration">Fire Duration (seconds)</label>
-      <input type="number" name="duration" min="0.1" max="5" step="0.1" required />
-
-      <div class="toggle-wrapper">
-        <label for="armed">Arm System</label>
-        <label class="toggle">
-          <input type="checkbox" id="armed" onchange="toggleFireButton()" />
-          <span class="slider"></span>
-        </label>
-      </div>
-
-      <button id="fireBtn" type="submit" disabled>Fire Valve</button>
-      <div id="countdown"></div>
-      <button id="emergency" type="button" onclick="emergencyShutdown()">Emergency Shutdown</button>
-    </form>
-
-    {% if message %}
-      <div class="msg">{{ message }}</div>
-    {% endif %}
-
-    {% if logs %}
-      <table class="log-table">
-        <thead>
-          <tr><th>Timestamp</th><th>Duration (s)</th></tr>
-        </thead>
-        <tbody>
-          {% for log in logs %}
-            <tr><td>{{ log.timestamp }}</td><td>{{ log.duration }}</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-  </div>
 </body>
 </html>
