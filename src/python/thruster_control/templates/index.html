@@ -291,7 +291,9 @@
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({duration:duration})
-      }).then(function(res){return res.json()}).then(function(data){
+      }).then(function(res){return res.text()}).then(function(text){
+        var data;
+        try{data=JSON.parse(text)}catch(e){throw new Error('Invalid JSON: '+text)}
         if(!data.success)throw new Error(data.message);
         pollValveStatus();
         return runCountdown(duration);
