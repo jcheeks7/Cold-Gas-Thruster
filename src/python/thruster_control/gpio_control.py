@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+import lgpio as GPIO
 import time
 
 VALVE_PIN = 17
