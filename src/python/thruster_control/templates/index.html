@@ -2,122 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ARENYX TECH // Thruster Control</title>
+  <title>ARENYX // Thruster Control</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    :root {
-      --soil-black: #0A0E0A;
-      --forest-green: #228B22;
-      --moss-veil: #A8D5BA;
-      --sage-whisper: #C1D0B5;
-      --dew-grey: #B0C4DE;
-    }
-    body {
-      background-color: var(--soil-black);
-      color: var(--forest-green);
-      font-family: monospace;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    .screen {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-      padding: 30px;
-      box-sizing: border-box;
-    }
-    .ascii-logo {
-      width: 50%;
-      white-space: pre;
-      font-size: 18px;
-      color: var(--forest-green);
-      text-shadow: 0 0 3px var(--forest-green);
-      line-height: 1.1;
-      overflow-y: auto;
-    }
-    .terminal-panel {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      padding-left: 30px;
-      font-size: 1.1em;
-      position: relative;
-    }
-    .diagnostics {
-      padding-top: 20px;
-      font-size: 1em;
-      color: var(--dew-grey);
-    }
-    .line {
-      margin-bottom: 12px;
-    }
-    .input-line {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .caret {
-      width: 10px;
-      height: 1em;
-      background: var(--forest-green);
-      animation: blink 1s step-end infinite;
-    }
-    @keyframes blink {
-      50% { background: transparent; }
-    }
-    input[type="number"] {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--forest-green);
-      color: var(--dew-grey);
-      width: 80px;
-      font-family: monospace;
-      font-size: 1em;
-    }
-    input:focus {
-      outline: none;
-    }
-    button {
-      background: none;
-      border: none;
-      color: var(--forest-green);
-      font-family: monospace;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    button:hover {
-      color: var(--dew-grey);
-    }
-    .log-block {
-      margin-top: 30px;
-    }
-    .log-line {
-      color: var(--sage-whisper);
-      font-size: 0.95em;
-    }
-    .cmd-label {
-      color: var(--forest-green);
-    }
-    #asciiCountdown {
-      font-family: monospace;
-      color: var(--moss-veil);
-      padding-top: 10px;
-      white-space: pre;
-    }
-    /* message banner */
-    #userMessage.info { color: var(--moss-veil); }
-    #userMessage.error { color: red; }
-    #userMessage { display: none; }
+    /* … your existing styles … */
 
-    /* confirmation modal */
+    /* Confirmation Modal – start hidden */
     #confirmModal {
+      display: none;             /* <-- hide by default */
       position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.75);
-      display: flex;
       align-items: center;
       justify-content: center;
+    }
+    /* When we add .show, it becomes flex */
+    #confirmModal.show {
+      display: flex;
     }
     .modal-content {
       background: var(--soil-black);
@@ -132,94 +34,11 @@
 </head>
 <body>
   <div class="screen">
-    <div class="ascii-logo">
-<pre>
- █████╗ ██████╗ ███████╗███╗   ██╗██╗   ██╗██╗  ██╗
-██╔══██╗██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝╚██╗██╔╝
-███████║██████╔╝█████╗  ██╔██╗ ██║ ╚████╔╝  ╚███╔╝ 
-██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║  ╚██╔╝   ██╔██╗ 
-██║  ██║██║  ██║███████╗██║ ╚████║   ██║   ██╔╝ ██╗
-╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝                                                          
-
-       [ SYSTEM ONLINE — PRESSURE STABLE ]
-
- .      .      .      .      .      .      .      .      .      .      .
-.                               .       .       .       .       .       .
-   .        .        .        .        .        .        .        .        .
-     .         .         .        _......____._        .         .
-   .          .          . ..--'"" .           """"""---...          .
-                   _...--""        ................       `-.              .
-                .-'        ...:'::::;:::%:.::::::_;;:...     `-.
-             .-'       ..::::'''''   _...---'"""":::+;_::.      `.      .
-  .        .' .    ..::::'      _.-""               :::)::.       `.
-         .      ..;:::'     _.-'         .             f::'::    o  _
-        /     .:::%'  .  .-"                        .-.  ::;;:.   /" "x
-  .   .'  ""::.::'    .-"     _.--'"""-.           (   )  ::.::  |_.-' |
-     .'    ::;:'    .'     .-" .d@@b.   \    .    . `-'   ::%::   \_ _/    .
-    .'    :,::'    /   . _'    8@@@@8   j      .-'       :::::      " o
-    | .  :.%:' .  j     (_)    `@@@P'  .'   .-"         ::.::    .  f
-    |    ::::     (        -..____...-'  .-"          .::::'       /
-.   |    `:`::    `.                ..--'        .  .::'::   .    /
-    j     `:::::    `-._____...---""             .::%:::'       .'  .
-     \      ::.:%..             .       .    ...:,::::'       .'
- .    \       `:::`:..                ....::::.::::'       .-'          .
-       \    .   ``:::%::`::.......:::::%::.::::''       .-'
-      . `.        . ``::::::%::::.::;;:::::'''      _.-'          .
-  .       `-..     .    .   ````'''''         . _.-'     .          .
-         .    ""--...____    .   ______......--' .         .         .
-  .        .        .    """"""""     .        .        .        .        .
- .       .       .       .       .       .       .       .       .
-     .      .      .      .      .      .      .      .      .      .      .
-</pre>
-    </div>
-
-    <div class="terminal-panel">
-      <form id="controlForm">
-        <div class="line">
-          <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
-        </div>
-        <div class="input-line">
-          <input type="number" step="0.1" name="duration" min="0.1" max="5" required />
-        </div>
-
-        <div class="line">
-          <span class="cmd-label">arenyx@thruster</span>:~$ Arm system? [y/n]
-          <input type="checkbox" id="armed" onchange="toggleFireButton()" />
-        </div>
-
-        <div class="line input-line">
-          <span class="cmd-label">arenyx@thruster</span>:~$
-          <button id="fireBtn" type="button" disabled>fire_valve()</button>
-          <span class="caret"></span>
-        </div>
-
-        <div id="userMessage" class="line"></div>
-        <div id="asciiCountdown"></div>
-
-        {% if logs %}
-        <div class="log-block">
-          <div class="line">[LOG: Last 5 firings]</div>
-          <div id="logsContainer">
-            {% for log in logs %}
-              <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
-            {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-      </form>
-
-      <div class="diagnostics">
-        <div>> SYSTEM DIAGNOSTICS:</div>
-        <div>  • Tank Pressure:     800 psi</div>
-        <div>  • Valve Status:      <span class="valve-status">STANDBY</span></div>
-        <div>  • Uplink:            SECURE</div>
-        <div>  • Gas Type:          CO₂</div>
-      </div>
-    </div>
+    <!-- … ascii logo + terminal-panel up top … -->
   </div>
 
-  <!-- Confirmation Modal -->
-  <div id="confirmModal" hidden>
+  <!-- remove hidden attr; modal starts hidden via CSS -->
+  <div id="confirmModal">
     <div class="modal-content">
       <p>Fire valve for <strong><span id="confirmDur"></span>s</strong>?</p>
       <button id="confirmYes">Yes</button>
@@ -228,7 +47,7 @@
   </div>
 
   <script>
-    // helper: show banner
+    /* helper: show banner */
     function showMessage(text, type='info') {
       const el = document.getElementById('userMessage');
       el.textContent = text;
@@ -236,20 +55,20 @@
       el.style.display = 'block';
     }
 
-    // enable fire button only if armed
+    /* enable fire button only if armed */
     function toggleFireButton() {
       document.getElementById('fireBtn').disabled = !document.getElementById('armed').checked;
     }
 
-    // disable/enable inputs during fire
+    /* lock/unlock controls */
     function toggleControls(disabled) {
       document.querySelector('input[name="duration"]').disabled = disabled;
       document.getElementById('armed').disabled = disabled;
       document.getElementById('fireBtn').disabled = disabled;
     }
 
-    // countdown bar
-    async function runCountdown(duration) {
+    /* countdown bar */
+    function runCountdown(duration) {
       const countdownDiv = document.getElementById("asciiCountdown");
       const totalBars = 20;
       const stepTime = (duration * 1000) / totalBars;
@@ -259,7 +78,7 @@
         const interval = setInterval(() => {
           current++;
           const filled = "=".repeat(current);
-          const empty = " ".repeat(totalBars - current);
+          const empty  = " ".repeat(totalBars - current);
           countdownDiv.textContent = `[FIRING] [${filled}${empty}]`;
           if (current >= totalBars) {
             clearInterval(interval);
@@ -270,7 +89,7 @@
       });
     }
 
-    // poll valve status endpoint
+    /* poll valve status */
     let statusInterval;
     function pollValveStatus() {
       clearInterval(statusInterval);
@@ -283,7 +102,7 @@
       }, 1000);
     }
 
-    // append to log container
+    /* append to log */
     function appendLog(timestamp, duration) {
       const container = document.getElementById('logsContainer');
       if (!container) return;
@@ -293,24 +112,24 @@
       container.prepend(div);
     }
 
-    // handle confirmation/modal logic
-    const fireBtn = document.getElementById('fireBtn');
+    /* modal toggling */
     const confirmModal = document.getElementById('confirmModal');
-    const confirmYes = document.getElementById('confirmYes');
-    const confirmNo = document.getElementById('confirmNo');
+    const fireBtn      = document.getElementById('fireBtn');
+    const confirmYes   = document.getElementById('confirmYes');
+    const confirmNo    = document.getElementById('confirmNo');
 
     fireBtn.addEventListener('click', () => {
-      const dur = parseFloat(document.querySelector('input[name="duration"]').value);
+      const dur = document.querySelector('input[name="duration"]').value;
       document.getElementById('confirmDur').textContent = dur;
-      confirmModal.hidden = false;
+      confirmModal.classList.add('show');   // <-- show it
     });
 
     confirmNo.addEventListener('click', () => {
-      confirmModal.hidden = true;
+      confirmModal.classList.remove('show'); // <-- hide it
     });
 
     confirmYes.addEventListener('click', async () => {
-      confirmModal.hidden = true;
+      confirmModal.classList.remove('show');
       toggleControls(true);
       showMessage('Firing…', 'info');
       try {
@@ -322,8 +141,10 @@
         });
         const { success, message } = await res.json();
         if (!success) throw new Error(message);
+
         pollValveStatus();
         await runCountdown(duration);
+
         const ts = new Date().toLocaleTimeString();
         appendLog(ts, duration);
         showMessage('Fire complete.', 'info');
