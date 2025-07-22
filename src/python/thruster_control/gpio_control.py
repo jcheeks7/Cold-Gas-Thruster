@@ -1,12 +1,13 @@
-import lgpio as GPIO
+import lgpio
 import time
 
 VALVE_PIN = 17
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(VALVE_PIN, GPIO.OUT)
-GPIO.output(VALVE_PIN, GPIO.LOW)
+
+h = lgpio.gpiochip_open(0)
+
+lgpio.gpio_claim_output(h, VALVE_PIN)
 
 def fire_valve(duration):
-    GPIO.output(VALVE_PIN, GPIO.HIGH)
+    lgpio.gpio_write(h, VALVE_PIN, 1)
     time.sleep(duration)
-    GPIO.output(VALVE_PIN, GPIO.LOW)
+    lgpio.gpio_write(h, VALVE_PIN, 0)
