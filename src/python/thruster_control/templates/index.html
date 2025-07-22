@@ -257,7 +257,10 @@
     function pollValveStatus(){
       clearInterval(statusInterval);
       statusInterval=setInterval(function(){
-        fetch('/api/valve/status').then(function(res){return res.json()}).then(function(data){
+        fetch('/api/valve/status').then(function(res){
+          if(!res.ok) throw new Error(res.status+' '+res.statusText);
+          return res.json();
+        }).then(function(data){
           document.querySelector('.valve-status').textContent=data.open?'OPEN':'CLOSED';
         }).catch(function(){});
       },1000);
@@ -291,10 +294,11 @@
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({duration:duration})
-      }).then(function(res){return res.text()}).then(function(text){
-        var data;
-        try{data=JSON.parse(text)}catch(e){throw new Error('Invalid JSON: '+text)}
-        if(!data.success)throw new Error(data.message);
+      }).then(function(res){
+        if(!res.ok) throw new Error(res.status+' '+res.statusText);
+        return res.json();
+      }).then(function(data){
+        if(!data.success) throw new Error(data.message);
         pollValveStatus();
         return runCountdown(duration);
       }).then(function(){
