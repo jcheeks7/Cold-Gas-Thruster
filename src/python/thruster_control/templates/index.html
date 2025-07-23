@@ -11,7 +11,6 @@
       --moss-veil: #A8D5BA;
       --sage-whisper: #C1D0B5;
       --dew-grey: #B0C4DE;
-      --alert-red: #8B0000;
     }
 
     body {
@@ -23,133 +22,243 @@
       overflow: hidden;
     }
 
+    .screen {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .ascii-logo {
+      width: 50%;
+      white-space: pre;
+      font-size: 18px;
+      color: var(--forest-green);
+      text-shadow: 0 0 3px var(--forest-green);
+      line-height: 1.1;
+      overflow-y: auto;
+    }
+
+    .terminal-panel {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 30px;
+      font-size: 1.1em;
+    }
+
+    .line {
+      margin-bottom: 12px;
+    }
+
+    .input-line {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .caret {
+      width: 10px;
+      height: 1em;
+      background: var(--forest-green);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { background: transparent; }
+    }
+
+    .ascii-box {
+      display: inline-block;
+      padding: 4px 10px;
+      margin: 6px 0;
+      color: var(--dew-grey);
+      background-color: transparent;
+      border: 1px dashed var(--forest-green);
+    }
+
+    .ascii-button {
+      display: inline-block;
+      color: var(--forest-green);
+      background-color: transparent;
+      border: 1px solid var(--forest-green);
+      padding: 5px 10px;
+      margin-left: 10px;
+      font-family: monospace;
+      cursor: pointer;
+    }
+
+    .ascii-button:disabled {
+      color: #555;
+      border-color: #555;
+      cursor: not-allowed;
+    }
+
+    .log-block {
+      margin-top: 30px;
+    }
+
     .log-line {
       color: var(--sage-whisper);
       font-size: 0.95em;
     }
+
+    .cmd-label {
+      color: var(--forest-green);
+    }
+
+    #asciiCountdown {
+      font-family: monospace;
+      color: var(--moss-veil);
+      padding-top: 10px;
+      white-space: pre;
+    }
+
+    .ascii-header {
+      color: var(--forest-green);
+      white-space: pre;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
-  <div id="boot"></div>
-  <div id="logo">[ PLACEHOLDER ASCII LOGO ]</div>
   <div class="screen">
     <div class="ascii-logo">
-      <pre>... your logo ...</pre>
+<pre>
+ █████╗ ██████╗ ███████╗███╗   ██╗██╗   ██╗██╗  ██╗
+██╔══██╗██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝╚██╗██╔╝
+███████║██████╔╝█████╗  ██╔██╗ ██║ ╚████╔╝  ╚███╔╝ 
+██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║  ╚██╔╝   ██╔██╗ 
+██║  ██║██║  ██║███████╗██║ ╚████║   ██║   ██╔╝ ██╗
+╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝                                                          
+
+       [ SYSTEM ONLINE — PRESSURE STABLE ]
+ .      .      .      .      .      .      .      .      .      .      .
+.                               .       .       .       .       .       .
+   .        .        .        .        .        .        .        .        .
+     .         .         .        _......____._        .         .
+   .          .          . ..--'"" .           """"""---...          .
+                   _...--""        ................       `-.              .
+                .-'        ...:'::::;:::%:.::::::_;;:...     `-.
+             .-'       ..::::'''''   _...---'"""":::+;_::.      `.      .
+  .        .' .    ..::::'      _.-""               :::)::.       `.
+         .      ..;:::'     _.-'         .             f::'::    o  _
+        /     .:::%'  .  .-"                        .-.  ::;;:.   /" "x
+  .   .'  ""::.::'    .-"     _.--'"""-.           (   )  ::.::  |_.-' |
+     .'    ::;:'    .'     .-" .d@@b.   \    .    . `-'   ::%::   \_ _/    .
+    .'    :,::'    /   . _'    8@@@@8   j      .-'       :::::      " o
+    | .  :.%:' .  j     (_)    `@@@P'  .'   .-"         ::.::    .  f
+    |    ::::     (        -..____...-'  .-"          .::::'       /
+.   |    `:`::    `.                ..--'        .  .::'::   .    /
+    j     `:::::    `-._____...---""             .::%:::'       .'  .
+     \      ::.:%..             .       .    ...:,::::'       .'
+ .    \       `:::`:..                ....::::.::::'       .-'          .
+       \    .   ``:::%::`::.......:::::%::.::::''       .-'
+      . `.        . ``::::::%::::.::;;:::::'''      _.-'          .
+  .       `-..     .    .   ````'''''         . _.-'     .          .
+         .    ""--...____    .   ______......--' .         .         .
+  .        .        .    """"""""     .        .        .        .        .
+ .       .       .       .       .       .       .       .       .
+     .      .      .      .      .      .      .      .      .      .      .
     </div>
+
     <div class="terminal-panel">
-      <div class="ascii-header">THRUSTER</div>
-      <form id="thrusterForm">
+      <div class="ascii-header">
+
+  _______ _    _ _____  _    _  _____ _______ ______ _____  
+ |__   __| |  | |  __ \| |  | |/ ____|__   __|  ____|  __ \ 
+    | |  | |__| | |__) | |  | | (___    | |  | |__  | |__) |
+    | |  |  __  |  _  /| |  | |\___ \   | |  |  __| |  _  / 
+    | |  | |  | | | \ \| |__| |____) |  | |  | |____| | \ \ 
+    |_|  |_|  |_|_|  \_\\____/|_____/   |_|  |______|_|  \_\
+                                                  
+      </div>
+
+      <form method="post" onsubmit="startCountdownBar();">
         <div class="line">
           <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
         </div>
         <div class="input-line">
-          <div class="ascii-box" id="pulseBox">
+          <div class="ascii-box">
             <input id="duration" type="number" step="0.1" name="duration" min="0.1" max="5" required style="background: transparent; border: none; color: var(--dew-grey); width: 60px; text-align: center;" /> s
           </div>
         </div>
+
         <div class="line">
           <label class="cmd-label">arenyx@thruster</label>:~$ Arm system?
           <input type="checkbox" id="armed" onchange="toggleFireButton()" />
         </div>
+
         <div class="line input-line">
           <span class="cmd-label">arenyx@thruster</span>:~$
           <button class="ascii-button" id="fireBtn" type="submit" disabled>FIRE</button>
           <span class="caret"></span>
         </div>
+
+        {% if message %}
+          <div class="line">→ {{ message }}</div>
+        {% endif %}
+
         <div id="asciiCountdown"></div>
-        <div class="log-block" id="logBlock">
-          <div class="line">====[System Log]====</div>
+
+        {% if logs %}
+        <div class="log-block">
+          <div class="line">[LOG: Last 5 firings]</div>
+          {% for log in logs %}
+            <div class="log-line">[{{ log.timestamp }}] → {{ log.duration }} seconds</div>
+          {% endfor %}
         </div>
+        {% endif %}
       </form>
-      <div class="ascii-header">DIAGNOSTICS</div>
+
+      <div class="ascii-header">
+
+ ____ ___    _    ____ _   _  ___  ____ _____ ___ ____ ____  
+|  _ |_ _|  / \  / ___| \ | |/ _ \/ ___|_   _|_ _/ ___/ ___| 
+| | | | |  / _ \| |  _|  \| | | | \___ \ | |  | | |   \___ \ 
+| |_| | | / ___ | |_| | |\  | |_| |___) || |  | | |___ ___) |
+|____|___/_/   \_\____|_| \_|\___/|____/ |_| |___\____|____/ 
+                                                             
+      </div>
+
       <div class="diagnostics">
-        <div>  • Tank Pressure:     <span id="tankPressure">800 psi</span></div>
-        <div>  • Valve Status:      <span id="valveStatus">STANDBY</span></div>
+        <div>> SYSTEM DIAGNOSTICS:</div>
+        <div>  • Tank Pressure:     800 psi</div>
+        <div>  • Valve Status:      STANDBY</div>
         <div>  • Uplink:            SECURE</div>
         <div>  • Gas Type:          CO₂</div>
       </div>
     </div>
   </div>
-<script>
-  const bootLines = [
-    'Initializing Arenyx systems...',
-    'Loading propulsion subsystem...',
-    'Performing pressure checks...',
-    'Linking valve control logic...',
-    'Diagnostics... OK',
-    'Comms secure',
-    'Launching interface...'
-  ];
 
-  const bootDiv = document.getElementById("boot");
-  const logoDiv = document.getElementById("logo");
-  const screen = document.querySelector(".screen");
-
-  let i = 0;
-  function showNextLine() {
-    if (i < bootLines.length) {
-      bootDiv.innerHTML += bootLines[i++] + "\n";
-      setTimeout(showNextLine, 500);
-    } else {
-      setTimeout(() => {
-        bootDiv.style.display = "none";
-        logoDiv.style.display = "block";
-        setTimeout(() => {
-          logoDiv.style.display = "none";
-          screen.style.display = "flex";
-        }, 1500);
-      }, 1000);
+  <script>
+    function toggleFireButton() {
+      const armed = document.getElementById('armed').checked;
+      document.getElementById('fireBtn').disabled = !armed;
     }
-  }
-  showNextLine();
 
-  function toggleFireButton() {
-    const armed = document.getElementById('armed').checked;
-    const pulseBox = document.getElementById('pulseBox');
-    const fireBtn = document.getElementById('fireBtn');
-    fireBtn.disabled = !armed;
-    pulseBox.classList.toggle('pulse', armed);
-  }
+    function startCountdownBar() {
+      const countdownDiv = document.getElementById("asciiCountdown");
+      let duration = parseFloat(document.querySelector('input[name="duration"]').value);
+      let totalBars = 20;
+      let stepTime = (duration * 1000) / totalBars;
+      let current = 0;
 
-  function startCountdownBar(duration) {
-    const countdownDiv = document.getElementById("asciiCountdown");
-    let totalBars = 20;
-    let stepTime = (duration * 1000) / totalBars;
-    let current = 0;
+      countdownDiv.innerText = "[FIRING] [                    ]";
 
-    countdownDiv.innerText = "[FIRING] [                    ]";
-
-    const interval = setInterval(() => {
-      current++;
-      const filled = "=".repeat(current);
-      const empty = " ".repeat(totalBars - current);
-      countdownDiv.innerText = `[FIRING] [${filled}${empty}]`;
-      if (current >= totalBars) {
-        clearInterval(interval);
-        countdownDiv.innerText = "[✓] Valve fire complete.";
-        document.getElementById("valveStatus").textContent = "STANDBY";
-      }
-    }, stepTime);
-  }
-
-  document.getElementById("thrusterForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const duration = parseFloat(document.getElementById("duration").value);
-    if (!duration) return;
-
-    document.getElementById("valveStatus").textContent = "FIRING...";
-    const pressureEl = document.getElementById("tankPressure");
-    let currentPressure = parseInt(pressureEl.textContent);
-    pressureEl.textContent = (currentPressure - Math.floor(duration * 10)) + " psi";
-
-    const now = new Date().toLocaleString();
-    const log = document.createElement("div");
-    log.className = "log-line";
-    log.textContent = `[${now}] → ${duration} seconds`;
-    document.getElementById("logBlock").appendChild(log);
-
-    startCountdownBar(duration);
-  });
-</script>
+      const interval = setInterval(() => {
+        current++;
+        const filled = "=".repeat(current);
+        const empty = " ".repeat(totalBars - current);
+        countdownDiv.innerText = `[FIRING] [${filled}${empty}]`;
+        if (current >= totalBars) {
+          clearInterval(interval);
+          countdownDiv.innerText = "[✓] Valve fire complete.";
+        }
+      }, stepTime);
+    }
+  </script>
 </body>
 </html>
