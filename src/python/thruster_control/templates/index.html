@@ -20,29 +20,7 @@
       padding: 0;
       overflow: hidden;
     }
-    <div id="boot-container" style="background-color: var(--soil-black); color: var(--forest-green); font-family: monospace; font-size: 14px; padding: 30px; white-space: pre; height: 100vh; width: 100vw; overflow: hidden;">
-      <div id="boot-text"></div>
-    </div>
-    
-    <div id="green-flash" style="position: fixed; top: 0; left: 0; height: 100vh; width: 100vw; background: var(--forest-green); z-index: 9999; display: none;"></div>
-    
-    <div id="logo-screen" style="display:none; height: 100vh; width: 100vw; background-color: var(--soil-black); color: var(--forest-green); font-family: monospace; display: flex; align-items: center; justify-content: center; font-size: 16px; white-space: pre;">
-      <div id="logo-placeholder">
-        
 
-   ▄████████    ▄████████    ▄████████ ███▄▄▄▄   ▄██   ▄   ▀████    ▐████▀          ███        ▄████████  ▄████████    ▄█    █▄    
-  ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███   ██▄   ███▌   ████▀       ▀█████████▄   ███    ███ ███    ███   ███    ███   
-  ███    ███   ███    ███   ███    █▀  ███   ███ ███▄▄▄███    ███  ▐███            ▀███▀▀██   ███    █▀  ███    █▀    ███    ███   
-  ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄     ███   ███ ▀▀▀▀▀▀███    ▀███▄███▀             ███   ▀  ▄███▄▄▄     ███         ▄███▄▄▄▄███▄▄ 
-▀███████████ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     ███   ███ ▄██   ███    ████▀██▄              ███     ▀▀███▀▀▀     ███        ▀▀███▀▀▀▀███▀  
-  ███    ███ ▀███████████   ███    █▄  ███   ███ ███   ███   ▐███  ▀███             ███       ███    █▄  ███    █▄    ███    ███   
-  ███    ███   ███    ███   ███    ███ ███   ███ ███   ███  ▄███     ███▄           ███       ███    ███ ███    ███   ███    ███   
-  ███    █▀    ███    ███   ██████████  ▀█   █▀   ▀█████▀  ████       ███▄         ▄████▀     ██████████ ████████▀    ███    █▀    
-               ███    ███                                                                                                                                                                                   
-
-      </div>
-    </div>
-    <div id="main-ui" style="display:none;">
     .screen {
       display: flex;
       height: 100vh;
@@ -50,7 +28,6 @@
       padding: 30px;
       box-sizing: border-box;
     }
-    </div>
 
     .ascii-logo {
       width: 50%;
@@ -146,6 +123,29 @@
   </style>
 </head>
 <body>
+<!-- BOOT SEQUENCE -->
+<div id="boot-container" style="background-color: var(--soil-black); color: var(--forest-green); font-family: monospace; font-size: 14px; padding: 30px; white-space: pre; height: 100vh; width: 100vw; overflow: hidden;">
+  <div id="boot-text"></div>
+</div>
+
+<!-- FLASH TRANSITION -->
+<div id="green-flash" style="position: fixed; top: 0; left: 0; height: 100vh; width: 100vw; background: var(--forest-green); z-index: 9999; display: none;"></div>
+
+<!-- LOGO PLACEHOLDER -->
+<div id="logo-screen" style="display:none; height: 100vh; width: 100vw; background-color: var(--soil-black); color: var(--forest-green); font-family: monospace; display: flex; align-items: center; justify-content: center; font-size: 16px; white-space: pre;">
+  <div id="logo-placeholder">
+
+   ▄████████    ▄████████    ▄████████ ███▄▄▄▄   ▄██   ▄   ▀████    ▐████▀          ███        ▄████████  ▄████████    ▄█    █▄    
+  ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███   ██▄   ███▌   ████▀       ▀█████████▄   ███    ███ ███    ███   ███    ███   
+  ███    ███   ███    ███   ███    █▀  ███   ███ ███▄▄▄███    ███  ▐███            ▀███▀▀██   ███    █▀  ███    █▀    ███    ███   
+  ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄     ███   ███ ▀▀▀▀▀▀███    ▀███▄███▀             ███   ▀  ▄███▄▄▄     ███         ▄███▄▄▄▄███▄▄ 
+▀███████████ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     ███   ███ ▄██   ███    ████▀██▄              ███     ▀▀███▀▀▀     ███        ▀▀███▀▀▀▀███▀  
+  ███    ███ ▀███████████   ███    █▄  ███   ███ ███   ███   ▐███  ▀███             ███       ███    █▄  ███    █▄    ███    ███   
+  ███    ███   ███    ███   ███    ███ ███   ███ ███   ███  ▄███     ███▄           ███       ███    ███ ███    ███   ███    ███   
+  ███    █▀    ███    ███   ██████████  ▀█   █▀   ▀█████▀  ████       ███▄         ▄████▀     ██████████ ████████▀    ███    █▀    
+               ███    ███                                                                                                          
+  </div>
+</div>
   <div class="screen">
     <div class="ascii-logo">
 <pre>
