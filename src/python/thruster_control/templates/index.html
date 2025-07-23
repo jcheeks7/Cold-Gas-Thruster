@@ -198,7 +198,7 @@
                                                   
       </div>
 
-      <form method="post" onsubmit="startCountdownBar();">
+      <form onsubmit="startCountdownBar(event); return false;">
         <div class="line">
           <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
         </div>
@@ -262,6 +262,7 @@
     }
 
     function startCountdownBar() {
+      event.preventDefault();
       const countdownDiv = document.getElementById("asciiCountdown");
       let duration = parseFloat(document.querySelector('input[name="duration"]').value);
       let totalBars = 20;
