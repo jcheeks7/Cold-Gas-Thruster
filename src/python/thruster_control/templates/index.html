@@ -198,7 +198,7 @@
                                                   
       </div>
 
-      <form onsubmit="startCountdownBar(event); return false;">
+      <form method="POST" action="/">
         <div class="line">
           <span class="cmd-label">arenyx@thruster</span>:~$ Enter fire duration (s):
         </div>
@@ -255,34 +255,6 @@
     </div>
   </div>
 
-  <script>
-    function toggleFireButton() {
-      const armed = document.getElementById('armed').checked;
-      document.getElementById('fireBtn').disabled = !armed;
-    }
-
-    function startCountdownBar() {
-      event.preventDefault();
-      const countdownDiv = document.getElementById("asciiCountdown");
-      let duration = parseFloat(document.querySelector('input[name="duration"]').value);
-      let totalBars = 20;
-      let stepTime = (duration * 1000) / totalBars;
-      let current = 0;
-
-      countdownDiv.innerText = "[FIRING] [                    ]";
-
-      const interval = setInterval(() => {
-        current++;
-        const filled = "=".repeat(current);
-        const empty = " ".repeat(totalBars - current);
-        countdownDiv.innerText = `[FIRING] [${filled}${empty}]`;
-        if (current >= totalBars) {
-          clearInterval(interval);
-          countdownDiv.innerText = "[✓] Valve fire complete.";
-        }
-      }, stepTime);
-    }
-  </script>
   <script>
   const bootLines = [
     "BOOT SEQUENCE INITIATED...",
