@@ -21,9 +21,9 @@ This project models, simulates, and prepares for the physical implementation of 
 ✅Material Ordered <br>
 ✅Material Recieved <br>
 ✅Tool Kit <br>
-⏳Simulation (Toolkit & CFD) <br>
+✅Simulation (Toolkit & CFD) <br>
 ✅CAD <br>
-⏳Build <br>
+✅Build <br>
 🧱Results <br>
 
 ---
