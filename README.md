@@ -54,7 +54,6 @@ cold-gas-propulsion/
 ## 🧠 Features
 
 * Ideal gas and isentropic nozzle flow models
-* MEOP, burst pressure, and tank sizing calculations
 * Time-step tank pressure & mass simulation
 * CAD-compatible tank layout and plumbing
 * Full LaTeX technical report with citations
