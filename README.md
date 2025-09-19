@@ -24,7 +24,7 @@ This project models, simulates, and prepares for the physical implementation of 
 ✅Simulation (Toolkit & CFD) <br>
 ✅CAD <br>
 ✅Build <br>
-🧱Results <br>
+✅Results <br>
 
 ---
 
